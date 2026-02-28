@@ -1,219 +1,306 @@
-'use client'
+"use client";
 
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { z } from 'zod'
-import { Button } from '@/components/ui/button'
-import { useState } from 'react'
-import { Mail, MapPin, Phone } from 'lucide-react'
+import { zodResolver } from "@hookform/resolvers/zod";
+import Link from "next/link";
+import { useState } from "react";
+import {
+	type Control,
+	type FieldPath,
+	type FieldValues,
+	useForm,
+} from "react-hook-form";
+import { IconDeviceMobile, IconMail, IconMapPin } from "tabler-icons";
+import { z } from "zod";
+import { Button } from "@/components/ui/button";
+import {
+	Form,
+	FormControl,
+	FormField,
+	FormItem,
+	FormLabel,
+	FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { ContactInfo as Info } from "@/constants/data";
 
 const contactSchema = z.object({
-  name: z.string().min(2, 'Name must be at least 2 characters'),
-  mobile: z.string().regex(/^[0-9\s\-\+\(\)]+$/, 'Please enter a valid mobile number'),
-  email: z.string().email('Please enter a valid email address'),
-  message: z.string().min(10, 'Message must be at least 10 characters'),
-})
+	name: z.string().min(2, "Name must be at least 2 characters"),
+	mobile: z
+		.string()
+		.regex(/^[0-9\s\-+()]+$/, "Please enter a valid mobile number"),
+	email: z.email("Please enter a valid email address"),
+	message: z
+		.string()
+		.min(10, "Message must be at least 10 characters"),
+});
 
-type ContactFormData = z.infer<typeof contactSchema>
+type ContactFormData = z.infer<typeof contactSchema>;
 
 export default function Contact() {
-  const [submitted, setSubmitted] = useState(false)
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    reset,
-  } = useForm<ContactFormData>({
-    resolver: zodResolver(contactSchema),
-  })
+	return (
+		<div className="w-full bg-white">
+			<PTB />
+			<section className="py-12 md:py-20 bg-white">
+				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+					<div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+						<ContactForm />
+						<ContactInfo />
+					</div>
+				</div>
+			</section>
+			<MapSec />
+		</div>
+	);
+}
 
-  const onSubmit = async (data: ContactFormData) => {
-    try {
-      setSubmitted(true)
-      reset()
-      setTimeout(() => setSubmitted(false), 3000)
-    } catch (error) {
-      console.error('Form submission error:', error)
-    }
-  }
+function PTB() {
+	return (
+		<section className="relative w-full py-16 md:py-20 bg-slate-950 text-white overflow-hidden">
+			<div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+				<h1 className="text-4xl md:text-5xl font-bold mb-4">
+					Contact Us
+				</h1>
+				<p className="text-yellow font-semibold text-lg">
+					Contact with the Top Industry Expert
+				</p>
+			</div>
+		</section>
+	);
+}
 
-  return (
-    <div className="w-full bg-white">
-      {/* Hero Section */}
-      <section className="relative w-full py-12 bg-slate-950 text-white overflow-hidden">
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold mb-2">
-            Contact Us
-          </h1>
-          <p className="text-yellow-400 font-semibold">
-            Contact with the Top Industry Expert
-          </p>
-        </div>
-      </section>
+interface ContactFormFieldProps<
+	T extends FieldValues = ContactFormData,
+> {
+	control: Control<T>;
+	name: FieldPath<T>;
+	label: string;
+	placeholder?: string;
+	type?: "text" | "email" | "tel";
+	textarea?: boolean;
+	rows?: number;
+}
 
-      {/* Main Content */}
-      <section className="py-12 md:py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            {/* Left - Form */}
-            <div className="lg:col-span-2">
-              <div>
-                <p className="text-slate-600 text-sm font-semibold mb-2">How can we help?</p>
-                <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-2">
-                  Get in Touch with Our Company
-                </h2>
-                <p className="text-slate-700 mb-8 text-sm leading-relaxed">
-                  Have questions or want to chat?<br />
-                  Fill out our contact form, and we'll put you in touch with the right people.
-                </p>
-              </div>
+function ContactFormField<T extends FieldValues = ContactFormData>({
+	control,
+	name,
+	label,
+	placeholder,
+	type = "text",
+	textarea = false,
+	rows = 5,
+}: ContactFormFieldProps<T>) {
+	return (
+		<FormField
+			control={control}
+			name={name}
+			render={({ field }) => (
+				<FormItem>
+					<FormLabel className="text-blue-800">
+						{label} <span className="text-red-600">*</span>
+					</FormLabel>
+					<FormControl>
+						{textarea ? (
+							<Textarea
+								placeholder={placeholder}
+								rows={rows}
+								className="resize-none rounded-none bg-gray-100"
+								{...field}
+							/>
+						) : (
+							<Input
+								type={type}
+								placeholder={placeholder}
+								{...field}
+								className="rounded-none bg-gray-100"
+							/>
+						)}
+					</FormControl>
+					<FormMessage className="text-red-600 text-xs" />
+				</FormItem>
+			)}
+		/>
+	);
+}
 
-              {submitted ? (
-                <div className="bg-green-50 border-2 border-green-400 rounded-lg p-8 text-center">
-                  <div className="text-5xl mb-4">✓</div>
-                  <h3 className="font-bold text-xl text-green-900 mb-2">Message Sent!</h3>
-                  <p className="text-green-800">
-                    Thank you for contacting us. We'll get back to you within 24 hours.
-                  </p>
-                </div>
-              ) : (
-                <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-                  <div>
-                    <label className="text-slate-900 font-semibold text-sm block mb-1">
-                      Name <span className="text-red-600">*</span>
-                    </label>
-                    <input
-                      type="text"
-                      placeholder="Name"
-                      {...register('name')}
-                      className="w-full px-4 py-2 border border-slate-300 rounded text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-yellow-400"
-                    />
-                    {errors.name && (
-                      <p className="text-red-600 text-xs mt-1">{errors.name.message}</p>
-                    )}
-                  </div>
+function ContactForm() {
+	const [submitted, setSubmitted] = useState(false);
 
-                  <div>
-                    <label className="text-slate-900 font-semibold text-sm block mb-1">
-                      Mobile <span className="text-red-600">*</span>
-                    </label>
-                    <input
-                      type="tel"
-                      placeholder="Your Mobile Number"
-                      {...register('mobile')}
-                      className="w-full px-4 py-2 border border-slate-300 rounded text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-yellow-400"
-                    />
-                    {errors.mobile && (
-                      <p className="text-red-600 text-xs mt-1">{errors.mobile.message}</p>
-                    )}
-                  </div>
+	const form = useForm<ContactFormData>({
+		resolver: zodResolver(contactSchema),
+		defaultValues: {
+			name: "",
+			mobile: "",
+			email: "",
+			message: "",
+		},
+	});
 
-                  <div>
-                    <label className="text-slate-900 font-semibold text-sm block mb-1">
-                      Email <span className="text-red-600">*</span>
-                    </label>
-                    <input
-                      type="email"
-                      placeholder="Email"
-                      {...register('email')}
-                      className="w-full px-4 py-2 border border-slate-300 rounded text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-yellow-400"
-                    />
-                    {errors.email && (
-                      <p className="text-red-600 text-xs mt-1">{errors.email.message}</p>
-                    )}
-                  </div>
+	const onSubmit = async (data: ContactFormData) => {
+		try {
+			console.log("Form data:", data);
+			await new Promise((resolve) => setTimeout(resolve, 500));
 
-                  <div>
-                    <label className="text-slate-900 font-semibold text-sm block mb-1">
-                      Message <span className="text-red-600">*</span>
-                    </label>
-                    <textarea
-                      placeholder="Message"
-                      rows={5}
-                      {...register('message')}
-                      className="w-full px-4 py-2 border border-slate-300 rounded text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-yellow-400 resize-none"
-                    />
-                    {errors.message && (
-                      <p className="text-red-600 text-xs mt-1">{errors.message.message}</p>
-                    )}
-                  </div>
+			setSubmitted(true);
+			form.reset();
 
-                  <button
-                    type="submit"
-                    className="w-full bg-yellow-400 hover:bg-yellow-500 text-slate-900 font-bold py-2 rounded transition-colors"
-                  >
-                    Send
-                  </button>
-                </form>
-              )}
-            </div>
+			setTimeout(() => setSubmitted(false), 3000);
+		} catch (error) {
+			console.error("Form submission error:", error);
+		}
+	};
 
-            {/* Right - Contact Info */}
-            <div className="lg:col-span-1 space-y-4">
-              {/* Name Card - Yellow */}
-              <div className="bg-yellow-400 p-6 rounded-lg text-slate-900">
-                <div className="text-5xl mb-3">😊</div>
-                <h3 className="font-bold text-lg mb-1">Mustafa Ansari</h3>
-                <p className="text-sm font-semibold">Head of Sales</p>
-              </div>
+	if (submitted) {
+		return (
+			<div className="lg:col-span-2">
+				<div className="bg-green-50 border-2 border-green-400 rounded-lg p-8 text-center">
+					<div className="text-5xl mb-4">✓</div>
+					<h3 className="font-bold text-xl text-green-900 mb-2">
+						Message Sent!
+					</h3>
+					<p className="text-green-800">
+						Thank you for contacting us. We'll get back to you within
+						24 hours.
+					</p>
+				</div>
+			</div>
+		);
+	}
 
-              {/* Contact Info Card - Dark */}
-              <div className="bg-slate-900 text-white p-6 rounded-lg space-y-4">
-                <div className="flex gap-3">
-                  <MapPin className="w-5 h-5 text-white flex-shrink-0 mt-0.5" />
-                  <div>
-                    <h4 className="font-bold mb-1">Address</h4>
-                    <p className="text-sm text-gray-300">Deosth Deoria, Deoria, Uttar Pradesh</p>
-                  </div>
-                </div>
+	return (
+		<div className="lg:col-span-2">
+			<div className="mb-8">
+				<p className="text-accent text-sm font-semibold mb-2">
+					How can we help?
+				</p>
+				<h2 className="text-3xl md:text-4xl font-bold text-primary mb-4">
+					Get in Touch with Our Company
+				</h2>
+				<p className="text-accent text-base font-medium leading-relaxed">
+					Have questions or want to chat?
+					<br />
+					Fill out our contact form, and we'll put you in touch with
+					the right people.
+				</p>
+			</div>
 
-                <div className="flex gap-3">
-                  <Mail className="w-5 h-5 text-white flex-shrink-0 mt-0.5" />
-                  <div>
-                    <h4 className="font-bold mb-1">Email</h4>
-                    <p className="text-sm text-gray-300">info@krmenggworks.com</p>
-                  </div>
-                </div>
+			<Form {...form}>
+				<form
+					onSubmit={form.handleSubmit(onSubmit)}
+					className="space-y-4"
+				>
+					<ContactFormField
+						control={form.control}
+						name="name"
+						label="Name"
+						placeholder="Name"
+					/>
 
-                <div className="flex gap-3">
-                  <Mail className="w-5 h-5 text-white flex-shrink-0 mt-0.5" />
-                  <div>
-                    <h4 className="font-bold mb-1">Email</h4>
-                    <p className="text-sm text-gray-300">krmenggworks@gmail.com</p>
-                  </div>
-                </div>
+					<ContactFormField
+						control={form.control}
+						name="mobile"
+						label="Mobile"
+						placeholder="Your Mobile Number"
+						type="tel"
+					/>
 
-                <div className="flex gap-3">
-                  <Phone className="w-5 h-5 text-white flex-shrink-0 mt-0.5" />
-                  <div>
-                    <h4 className="font-bold mb-1">Mobile</h4>
-                    <p className="text-sm text-gray-300">+91 86045 07464</p>
-                  </div>
-                </div>
+					<ContactFormField
+						control={form.control}
+						name="email"
+						label="Email"
+						placeholder="Email"
+						type="email"
+					/>
 
-                <div className="flex gap-3">
-                  <Phone className="w-5 h-5 text-white flex-shrink-0 mt-0.5" />
-                  <div>
-                    <h4 className="font-bold mb-1">Mobile</h4>
-                    <p className="text-sm text-gray-300">+91 8600 33282</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+					<ContactFormField
+						control={form.control}
+						name="message"
+						label="Message"
+						placeholder="Message"
+						textarea
+						rows={5}
+					/>
 
-      {/* Map Section */}
-      <section className="py-8 bg-white">
-        <div className="w-full h-96 bg-gradient-to-br from-emerald-200 to-emerald-300 flex items-center justify-center">
-          <div className="text-center">
-            <div className="text-5xl mb-3">🗺️</div>
-            <p className="text-emerald-800 font-semibold">Google Map Embedded Here</p>
-            <p className="text-sm text-emerald-700">Deosth Deoria, Deoria, Uttar Pradesh</p>
-          </div>
-        </div>
-      </section>
-    </div>
-  )
+					<Button
+						type="submit"
+						disabled={form.formState.isSubmitting}
+						className="w-full h-12 bg-yellow hover:bg-primary text-primary hover:text-white font-bold py-2 transition-colors disabled:opacity-50"
+					>
+						{form.formState.isSubmitting ? "Sending..." : "Send"}
+					</Button>
+				</form>
+			</Form>
+		</div>
+	);
+}
+
+function ContactInfo() {
+	return (
+		<div className="lg:col-span-1">
+			<div className="bg-yellow p-6 text-primary">
+				<div className="text-5xl mb-3">
+					<svg
+						aria-hidden="true"
+						xmlns="http://www.w3.org/2000/svg"
+						width="55"
+						height="55"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						strokeWidth="2"
+						strokeLinecap="round"
+						strokeLinejoin="round"
+					>
+						<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+						<path d="M3 12a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" />
+						<path d="M9 10a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" />
+						<path d="M6.168 18.849a4 4 0 0 1 3.832 -2.849h4a4 4 0 0 1 3.834 2.855" />
+					</svg>
+				</div>
+				<h3 className="font-bold text-3xl mb-3">Mustafa Ansari</h3>
+				<p className="text-base font-semibold">Head of Sales</p>
+			</div>
+
+			<div className="bg-slate-900 text-white p-6 space-y-4">
+				{Info.map((item) => {
+					const IconComponent = item.icon;
+					return (
+						<li
+							key={item.id}
+							className="flex items-center gap-4 group cursor-pointer"
+						>
+							<IconComponent className="size-7 rounded-sm p-1.2 stroke-yellow group-hover:stroke-sky " />
+							<Link
+								href={item.link}
+								target="_blank"
+								className="text-gray-300 transition-colors group-hover:text-sky"
+							>
+								<h4 className="text-2xl font-semibold">
+									{item.text}
+								</h4>
+								<p className="text-base font-medium">{item.label}</p>
+							</Link>
+						</li>
+					);
+				})}
+			</div>
+		</div>
+	);
+}
+
+function MapSec() {
+	return (
+		<section className="">
+			<div className="text-center">
+				<iframe
+					src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3565.745185344252!2d83.82254130000001!3d26.6566399!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3993c35d34370ec7%3A0xd3e4b20697f81b45!2sKarmullah%20Engineering%20Works!5e0!3m2!1sen!2sin!4v1772317806261!5m2!1sen!2sin"
+					width="100%"
+					height="600"
+					allowFullScreen
+					loading="lazy"
+					referrerPolicy="no-referrer-when-downgrade"
+				></iframe>
+			</div>
+		</section>
+	);
 }

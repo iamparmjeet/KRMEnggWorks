@@ -4,12 +4,6 @@ import {
 	IconFileCertificate,
 	IconUsers,
 } from "tabler-icons";
-import {
-	Card,
-	CardContent,
-	CardHeader,
-	CardTitle,
-} from "@/components/ui/card";
 import { media } from "@/constants/data";
 
 export default function About() {

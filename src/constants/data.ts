@@ -17,6 +17,7 @@ export const productCardBg = `${media}/03/pattern2.png`;
 
 export type ContactItemType = {
 	id: number;
+	text?: string;
 	label: string;
 	link: string;
 	icon: TablerIcon;
@@ -25,30 +26,35 @@ export type ContactItemType = {
 export const ContactInfo: ContactItemType[] = [
 	{
 		id: 1,
+		text: "Mobile",
 		label: "+91 86045 07464",
 		link: "tel:+918604507464",
 		icon: IconPhone,
 	},
 	{
 		id: 2,
+		text: "Mobile",
 		label: "+91 86010 33282",
 		link: "tel:+918601033282",
 		icon: IconPhone,
 	},
 	{
 		id: 3,
+		text: "Email",
 		label: "info@krmenggworks.com",
 		link: "mailto:info@krmenggworks.com",
 		icon: IconMail,
 	},
 	{
 		id: 4,
+		text: "Email",
 		label: "krmenggworks@gmail.com",
 		link: "mailto:krmenggworks@gmail.com",
 		icon: IconMail,
 	},
 	{
 		id: 5,
+		text: "Address",
 		label: "Deosth Deoria, Deoria, Uttar Pradesh",
 		link: "https://www.google.com/maps/place/Karmullah+Engineering+Works/@26.6566447,83.8199664,17z/data=!3m1!4b1!4m6!3m5!1s0x3993c35d34370ec7:0xd3e4b20697f81b45!8m2!3d26.6566399!4d83.8225413!16s%2Fg%2F11trzmqtyh?entry=ttu",
 		icon: IconMapPin,
