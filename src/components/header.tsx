@@ -1,9 +1,9 @@
 "use client";
 
-import { Menu, ShoppingCart, X } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
+import { IconMenu, IconShoppingCart, IconX } from "tabler-icons";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { Logo } from "./logo";
@@ -148,9 +148,9 @@ function MobileMenuButton({
 			className="md:hidden text-sky hover:text-white transition-colors bg-none"
 		>
 			{isOpen ? (
-				<X className="size-8" />
+				<IconX className="size-8" />
 			) : (
-				<Menu className="size-8" />
+				<IconMenu className="size-8" />
 			)}
 		</Button>
 	);
@@ -165,7 +165,7 @@ function CartBox() {
 					size="icon"
 					className="h-15 w-14 p-4 bg-yellow hover:bg-white border-2 hover:border-yellow cursor-pointer"
 				>
-					<ShoppingCart className="size-6" />
+					<IconShoppingCart className="size-6" />
 				</Button>
 			</Link>
 
