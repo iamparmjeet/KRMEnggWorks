@@ -158,7 +158,7 @@ function MobileMenuButton({
 
 function CartBox() {
 	return (
-		<div className="hidden md:flex">
+		<div className="hidden md:flex gap-4">
 			<Link href="/cart">
 				<Button
 					variant="default"
