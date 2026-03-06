@@ -7,12 +7,6 @@ import {
 } from "tabler-icons";
 import { Button } from "@/components/ui/button";
 import {
-	Card,
-	CardContent,
-	CardHeader,
-	CardTitle,
-} from "@/components/ui/card";
-import {
 	Carousel,
 	CarouselContent,
 	CarouselItem,
