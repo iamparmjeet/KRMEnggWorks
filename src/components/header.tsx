@@ -30,7 +30,7 @@ export function Header() {
 	const navItems: NavItem[] = [
 		{ label: "Home", href: "/" },
 		{ label: "About Us", href: "/about" },
-		{ label: "Shop", href: "/products", hasDropdown: true },
+		{ label: "Shop", href: "/shop", hasDropdown: true },
 		{ label: "Contact Us", href: "/contact" },
 	];
 
