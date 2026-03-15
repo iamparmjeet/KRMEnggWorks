@@ -1,19 +1,24 @@
 
 # Tasks
 ### Small Details
-- [ ] Favicon
-- [ ] Icon
-- [ ] Socials
-- [ ] Map
-- [ ] Header
-- [ ] Footer
+- [x] Favicon
+- [x] Icon
+- [x] Socials
+- [x] Map
+- [x] Header
+- [x] Footer
 ### Pages
-- [ ] Home
-- [ ] About
-- [ ] Contact
-- [ ] Product Archieve
+- [x] Home
+- [x] About
+- [x] Contact
+- [x] Product Archieve
 	- [ ] Filter
-- [ ] Single Page
+	- [ ] Sorting
+	- [ ] Categories headline 
+	- [ ] Add to card button working
+- [x] Single Page
+	- [ ] Related Product link
+- [ ] Product category Page
 - [ ] Cart
 - [ ] Privacy
 - [ ] 404
