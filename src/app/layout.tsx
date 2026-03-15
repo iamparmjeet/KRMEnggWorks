@@ -36,7 +36,9 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang="en">
-			<body className={`${cambo.variable} ${epilogue.variable} "antialiased"`}>
+			<body
+				className={`${cambo.variable} ${epilogue.variable} "antialiased"`}
+			>
 				<Header />
 				<main>{children}</main>
 				<Footer />
