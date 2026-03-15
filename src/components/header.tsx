@@ -3,8 +3,14 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import { IconMenu, IconShoppingCart, IconX } from "tabler-icons";
+import {
+	IconCaretDown,
+	IconMenu,
+	IconShoppingCart,
+	IconX,
+} from "tabler-icons";
 import { Button } from "@/components/ui/button";
+import { categories } from "@/constants";
 import { cn } from "@/lib/utils";
 import { Logo } from "./logo";
 
@@ -80,17 +86,24 @@ function DesktopNav({ navItems }: DesktopNavProps) {
 							)}
 						>
 							{item.label}
-							{item.hasDropdown && <span className="text-xs">▼</span>}
+							{item.hasDropdown && (
+								<span className="text-xs">
+									<IconCaretDown />
+								</span>
+							)}
 						</Link>
 
 						{item.hasDropdown && (
-							<div className="absolute left-0 mt-0 w-50 bg-white shadow-lg group-hover:opacity-100 group-hover:visible opacity-0 invisible transition-all duration-200">
-								<Link
-									href="/products"
-									className="block px-5 py-3.5 text-lg font-medium text-primary hover:text-white hover:bg-primary"
-								>
-									All Products
-								</Link>
+							<div className="absolute left-0 mt-0 text-nowrap bg-white shadow-lg group-hover:opacity-100 group-hover:visible opacity-0 invisible transition-all duration-200">
+								{categories.map((c) => (
+									<Link
+										key={c.id}
+										href={`/product-category/${c.id}`}
+										className="block px-5 py-3.5 text-base font-medium text-primary hover:text-white hover:bg-primary"
+									>
+										{c.name}
+									</Link>
+								))}
 							</div>
 						)}
 					</div>

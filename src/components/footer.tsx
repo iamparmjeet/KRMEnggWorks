@@ -1,7 +1,8 @@
 import Link from "next/link";
-import { ContactInfo, Socials } from "@/constants/data";
+import { ContactInfo, Socials } from "@/constants";
 import { year } from "@/lib/utils";
 import { Logo } from "./logo";
+import { SocialsBox } from "./socials";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 
@@ -116,25 +117,7 @@ function CopyRightSec() {
 					</a>
 				</p>
 				<div className="flex gap-4">
-					<ul className="flex gap-2 text-lg font-semibold">
-						{Socials.map((item) => {
-							const IconComponent = item.icon;
-							return (
-								<li
-									key={item.id}
-									className="flex items-center justify-center gap-4 cursor-pointer  transition-colors group"
-								>
-									<Link
-										href={item.link}
-										target="_blank"
-										className="group-hover:bg-yellow bg-accent p-4"
-									>
-										<IconComponent className="size-7 rounded-sm p-1.2 stroke-yellow group-hover:stroke-accent " />
-									</Link>
-								</li>
-							);
-						})}
-					</ul>
+					<SocialsBox variant="yellow" />
 				</div>
 			</div>
 		</div>
