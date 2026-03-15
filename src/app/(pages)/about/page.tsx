@@ -4,23 +4,17 @@ import {
 	IconFileCertificate,
 	IconUsers,
 } from "tabler-icons";
+import PTB from "@/components/ptb";
 import { media } from "@/constants/data";
 
 export default function About() {
 	return (
 		<div className="w-full">
 			{/* Hero Section */}
-			<section className="relative w-full py-16 md:py-20 bg-slate-950 text-white overflow-hidden">
-				<div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-					<h1 className="text-4xl md:text-5xl font-bold mb-4">
-						About Us
-					</h1>
-					<p className="text-yellow font-semibold text-lg">
-						Our values and vaulted us to the top of our industry.
-					</p>
-				</div>
-			</section>
-
+			<PTB
+				heading="About Us"
+				subheading="Our values and vaulted us to the top of our industry."
+			/>
 			{/* Main Content Section */}
 			<ContentSec />
 			{/* Stats Section */}

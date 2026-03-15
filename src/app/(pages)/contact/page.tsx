@@ -9,8 +9,9 @@ import {
 	type FieldValues,
 	useForm,
 } from "react-hook-form";
-import { IconDeviceMobile, IconMail, IconMapPin } from "tabler-icons";
+
 import { z } from "zod";
+import PTB from "@/components/ptb";
 import { Button } from "@/components/ui/button";
 import {
 	Form,
@@ -40,7 +41,10 @@ type ContactFormData = z.infer<typeof contactSchema>;
 export default function Contact() {
 	return (
 		<div className="w-full bg-white">
-			<PTB />
+			<PTB
+				heading="Contact Us"
+				subheading="	Contact with the Top Industry Expert"
+			/>
 			<section className="py-12 md:py-20 bg-white">
 				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 					<div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -51,21 +55,6 @@ export default function Contact() {
 			</section>
 			<MapSec />
 		</div>
-	);
-}
-
-function PTB() {
-	return (
-		<section className="relative w-full py-16 md:py-20 bg-slate-950 text-white overflow-hidden">
-			<div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-				<h1 className="text-4xl md:text-5xl font-bold mb-4">
-					Contact Us
-				</h1>
-				<p className="text-yellow font-semibold text-lg">
-					Contact with the Top Industry Expert
-				</p>
-			</div>
-		</section>
 	);
 }
 
