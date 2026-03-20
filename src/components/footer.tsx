@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ContactInfo, Socials } from "@/constants";
+import { ContactInfo } from "@/constants";
 import { year } from "@/lib/utils";
 import { Logo } from "./logo";
 import { SocialsBox } from "./socials";
@@ -40,8 +40,8 @@ function Aboutsec() {
 			<Heading text="About" />
 			<Logo />
 			<p className="text-lg font-medium leading-relaxed">
-				Your Trusted and Leading Partner and Top Certified IndiasMart
-				Seller in Your Building & Construction Machines Manufacturer.
+				Your Trusted and Leading Partner and Top Certified IndiasMart Seller in
+				Your Building & Construction Machines Manufacturer.
 			</p>
 		</div>
 	);

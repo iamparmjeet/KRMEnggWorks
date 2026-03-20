@@ -54,8 +54,8 @@ function HeroSec() {
 							KRM Engineering Works
 						</p>
 						<h1 className="text-4xl md:text-5xl font-bold leading-tight text-balance">
-							One-Stop Shop for Building & Construction Machine
-							Manufacturer and Engineering Excellence
+							One-Stop Shop for Building & Construction Machine Manufacturer and
+							Engineering Excellence
 						</h1>
 						<p className="text-lg text-white">
 							Trusted solution for all your machinery needs
@@ -136,31 +136,29 @@ function DifferentSection() {
 					{/* Left Column - Text */}
 					<div>
 						<h3 className="text-2xl font-bold text-slate-900 mb-2">
-							Bringing Decades of Expertise to Your Building &
-							Engineering Projects
+							Bringing Decades of Expertise to Your Building & Engineering
+							Projects
 						</h3>
 						<p className="text-base font-medium text-black mb-4 leading-relaxed">
-							KRM Engineering Works, established in 2010, is a trusted
-							industry leader in providing innovative and
-							cost-effective machinery solutions for various
-							construction and manufacturing sectors. We have a wide
-							array of products in our portfolio, making us the go-to
-							choice for construction, demolition, and infrastructure
+							KRM Engineering Works, established in 2010, is a trusted industry
+							leader in providing innovative and cost-effective machinery
+							solutions for various construction and manufacturing sectors. We
+							have a wide array of products in our portfolio, making us the
+							go-to choice for construction, demolition, and infrastructure
 							projects.
 						</p>
 
 						<h3 className="text-2xl font-bold text-slate-900 mb-2">
-							Crafting the Future of Manufacturing, Building,
-							Engineering, and Innovation Together
+							Crafting the Future of Manufacturing, Building, Engineering, and
+							Innovation Together
 						</h3>
 						<p className="text-base font-medium text-black mb-4 leading-relaxed">
-							We strive to be at the forefront of machinery
-							innovation. Our team of skilled engineers works with the
-							newest technology to create solutions that are not only
-							reliable but also environment-friendly. We take pride in
-							our commitment to quality and continuous improvement,
-							ensuring that our products meet the highest industry
-							standards.
+							We strive to be at the forefront of machinery innovation. Our team
+							of skilled engineers works with the newest technology to create
+							solutions that are not only reliable but also
+							environment-friendly. We take pride in our commitment to quality
+							and continuous improvement, ensuring that our products meet the
+							highest industry standards.
 						</p>
 
 						<Link href="/about">
@@ -359,10 +357,7 @@ function BestSellingSec() {
 				>
 					<CarouselContent>
 						{sellingProducts.map((product) => (
-							<CarouselItem
-								key={product.id}
-								className="basis-1/2 lg:basis-1/3"
-							>
+							<CarouselItem key={product.id} className="basis-1/2 lg:basis-1/3">
 								<div className="bg-white text-primary">
 									<Image
 										src={product.image}
@@ -372,9 +367,7 @@ function BestSellingSec() {
 									/>
 									<hr />
 									<div className="p-8 space-y-4">
-										<h3 className="text-xl font-semibold">
-											{product.name}
-										</h3>
+										<h3 className="text-xl font-semibold">{product.name}</h3>
 										<Link href={product.link}>
 											<Button className="bg-yellow hover:bg-primary hover:text-white">
 												Read more
@@ -434,9 +427,8 @@ function CTASec() {
 							Customer Satisfaction
 						</h3>
 						<p className="text-accent text-base font-medium leading-relaxed">
-							Happy customers are a valuable asset for us and we
-							understand the importance of timely delivery and quality
-							of equipment.
+							Happy customers are a valuable asset for us and we understand the
+							importance of timely delivery and quality of equipment.
 						</p>
 						<div className="space-y-4">
 							<Button className="w-full bg-yellow-400 hover:bg-yellow-500 text-slate-900 font-bold">

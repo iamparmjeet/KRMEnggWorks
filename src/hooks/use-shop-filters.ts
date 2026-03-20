@@ -1,17 +1,9 @@
 "use client";
 
-import {
-	usePathname,
-	useRouter,
-	useSearchParams,
-} from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useMemo } from "react";
 
-export type SortOption =
-	| "default"
-	| "price-low"
-	| "price-high"
-	| "newest";
+export type SortOption = "default" | "price-low" | "price-high" | "newest";
 
 export type ShopFilters = {
 	search: string;
@@ -33,8 +25,7 @@ export function useShopFilters() {
 
 		return {
 			search: searchParams.get("search") ?? "",
-			category:
-				categoryFromPath ?? searchParams.get("category") ?? null,
+			category: categoryFromPath ?? searchParams.get("category") ?? null,
 			subcategory: searchParams.get("sub") ?? null,
 			sortBy: (searchParams.get("sort") as SortOption) ?? "default",
 			page: Number(searchParams.get("page") ?? 1),
@@ -54,9 +45,7 @@ export function useShopFilters() {
 					// Navigate to category page if setting a category
 					const sub = updates.subcategory ?? params.get("sub") ?? "";
 					const subPart = sub ? `&sub=${sub}` : "";
-					router.push(
-						`/product-category/${updates.category}${subPart}`,
-					);
+					router.push(`/product-category/${updates.category}${subPart}`);
 					return;
 				} else {
 					// Clear category → go back to shop
@@ -65,8 +54,7 @@ export function useShopFilters() {
 				}
 			}
 			if ("subcategory" in updates) {
-				if (updates.subcategory)
-					params.set("sub", updates.subcategory);
+				if (updates.subcategory) params.set("sub", updates.subcategory);
 				else params.delete("sub");
 			}
 			if ("sortBy" in updates) {
@@ -85,7 +73,7 @@ export function useShopFilters() {
 
 			router.push(`${pathname}?${params.toString()}`);
 		},
-		[router, pathname, searchParams],
+		[router, pathname, searchParams]
 	);
 
 	const clearFilters = useCallback(() => {

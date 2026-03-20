@@ -8,10 +8,7 @@ export default function ProductSkeleton() {
 	return (
 		<div className="w-full bg-white">
 			{/* Hero */}
-			<PTB
-				heading="Shop"
-				subheading="Explore All Our Products Range"
-			/>
+			<PTB heading="Shop" subheading="Explore All Our Products Range" />
 
 			<section className="py-14 bg-white">
 				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -29,15 +26,13 @@ export default function ProductSkeleton() {
 						<ShopSidebarSkeleton />
 						<div className="lg:col-span-3">
 							<div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-								{Array.from({ length: ITEMS_PER_PAGE }).map(
-									(_, i) => (
-										<div key={i} className="space-y-3">
-											<Skeleton className="h-48 w-full" />
-											<Skeleton className="h-4 w-3/4" />
-											<Skeleton className="h-4 w-1/2" />
-										</div>
-									),
-								)}
+								{Array.from({ length: ITEMS_PER_PAGE }).map((_, i) => (
+									<div key={`skelton-${i}`} className="space-y-3">
+										<Skeleton className="h-48 w-full" />
+										<Skeleton className="h-4 w-3/4" />
+										<Skeleton className="h-4 w-1/2" />
+									</div>
+								))}
 							</div>
 						</div>
 					</div>

@@ -1,40 +1,124 @@
-import Image from "next/image";
-import type { ProductListItem } from "@/constants";
-import { Button } from "../ui/button";
-import { Separator } from "../ui/separator";
+"use client";
 
-export default function ProductCard({
-	product,
-}: {
+import { MessageSquare, ShoppingCart } from "lucide-react";
+import Image from "next/image";
+import { useState } from "react";
+import { QuoteModal, type QuoteProduct } from "@/components/cart/quote-model";
+import type { ProductListItem } from "@/constants/product-data";
+import { cn } from "@/lib/utils";
+import { useCartStore } from "@/store/cart-store";
+import { Button } from "../ui/button";
+
+function formatPrice(price: number) {
+	if (price === 0) return null;
+	return `₹${price.toLocaleString("en-IN")}`;
+}
+
+interface ProductCardProps {
 	product: ProductListItem;
-}) {
+}
+
+export default function ProductCard({ product }: ProductCardProps) {
+	const { addItem, items } = useCartStore();
+	const [quoteProduct, setQuoteProduct] = useState<QuoteProduct | null>(null);
+	const [justAdded, setJustAdded] = useState(false);
+
+	const isInCart = items.some((i) => i.id === product.id);
+	const formattedPrice = formatPrice(product.price);
+
+	const handleAddToCart = (e: React.MouseEvent) => {
+		e.preventDefault();
+		e.stopPropagation();
+		addItem({
+			id: product.id,
+			name: product.name,
+			price: product.price,
+			image: product.image,
+			slug: product.slug,
+		});
+		setJustAdded(true);
+		setTimeout(() => setJustAdded(false), 2000);
+	};
+
+	const handleGetQuote = (e: React.MouseEvent) => {
+		e.preventDefault();
+		e.stopPropagation();
+		setQuoteProduct({
+			id: product.id,
+			name: product.name,
+			image: product.image,
+			slug: product.slug,
+		});
+	};
+
 	return (
-		<div className="h-full overflow-hidden hover:shadow-sm transition-shadow cursor-pointer border border-accent rounded-none p-2 flex flex-col justify-between items-start">
-			<div className="min-h-75 relative overflow-hidden w-full">
-				<Image
-					src={product.image}
-					alt={product.name}
-					className="bg-center object-cover"
-					width={300}
-					height={300}
-				/>
-				<Separator className="bg-black my-2" />
-				<h3 className="font-semibold text-primary text-lg mb-2 line-clamp-2">
-					{product.name}
-				</h3>
-				<span className="text-accent font-medium text-lg">
-					₹{product.price.toLocaleString()}
-				</span>
+		<>
+			<div className="group bg-white border border-slate-200 hover:border-yellow-400 hover:shadow-lg transition-all duration-200 flex flex-col overflow-hidden">
+				{/* Image */}
+				<div className="relative h-48 bg-slate-50 overflow-hidden">
+					<Image
+						src={product.image}
+						alt={product.name}
+						fill
+						className="object-contain p-4 group-hover:scale-105 transition-transform duration-300"
+					/>
+				</div>
+
+				{/* Info */}
+				<div className="flex flex-col flex-1 p-4 gap-3">
+					<div>
+						<p className="text-xs text-slate-400 uppercase tracking-wide mb-1">
+							{product.category}
+						</p>
+						<h3 className="text-sm font-bold text-[#0d1b2a] leading-snug line-clamp-2">
+							{product.name}
+						</h3>
+					</div>
+
+					<div className="mt-auto">
+						{formattedPrice ? (
+							<p className="text-base font-bold text-yellow-600">
+								{formattedPrice}
+							</p>
+						) : (
+							<p className="text-sm text-slate-500 italic">Price on request</p>
+						)}
+					</div>
+
+					{/* Actions */}
+					<div className="flex gap-2 mt-1">
+						<Button
+							onClick={handleAddToCart}
+							className={cn(
+								"flex-1 flex items-center justify-center gap-1.5 py-2 text-xs font-bold transition-all duration-200",
+								justAdded
+									? "bg-green-500 text-white"
+									: isInCart
+										? "bg-[#0d1b2a] text-yellow-400 hover:bg-[#0d1b2a]/90"
+										: "bg-yellow-400 text-[#0d1b2a] hover:bg-yellow-500"
+							)}
+						>
+							<ShoppingCart className="h-3.5 w-3.5" />
+							{justAdded ? "Added!" : isInCart ? "In Cart" : "Add to Cart"}
+						</Button>
+
+						<Button
+							onClick={handleGetQuote}
+							className="flex items-center justify-center gap-1.5 px-3 py-2 text-xs font-bold border border-[#0d1b2a] text-[#0d1b2a] hover:bg-[#0d1b2a] hover:text-white transition-colors"
+							title="Get a Quote"
+						>
+							<MessageSquare className="h-3.5 w-3.5" />
+							<span className="hidden sm:inline">Quote</span>
+						</Button>
+					</div>
+				</div>
 			</div>
-			<Button
-				className="bg-yellow font-cambo text-lg font-semibold hover:bg-black hover:text-white py-2 h-auto w-auto mt-2"
-				onClick={(e) => {
-					e.preventDefault();
-					// Add to cart logic here
-				}}
-			>
-				Add to cart
-			</Button>
-		</div>
+
+			{/* Quote modal — rendered here so it has access to state */}
+			<QuoteModal
+				product={quoteProduct}
+				onClose={() => setQuoteProduct(null)}
+			/>
+		</>
 	);
 }

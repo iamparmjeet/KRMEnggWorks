@@ -29,9 +29,7 @@ export default async function ProductCategoryPage({
 	if (!category) notFound();
 
 	// Filter products for this category
-	const categoryProducts = products.filter((p) =>
-		p.categoryId.includes(slug),
-	);
+	const categoryProducts = products.filter((p) => p.categoryId.includes(slug));
 
 	// Further filter by subcategory if ?sub= is present
 	const subSlug = resolvedSearch.sub;
@@ -42,7 +40,7 @@ export default async function ProductCategoryPage({
 						s
 							.toLowerCase()
 							.replace(/\s+/g, "-")
-							.replace(/[^a-z0-9-]/g, "") === subSlug,
+							.replace(/[^a-z0-9-]/g, "") === subSlug
 				);
 				return subName ? p.category.includes(subName) : true;
 			})

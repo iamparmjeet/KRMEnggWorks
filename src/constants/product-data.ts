@@ -73,16 +73,13 @@ export const CategoryDefinitions = {
 		name: "Concrete Cutting Machines",
 		subcategories: [],
 	},
-} as const satisfies Record<
-	string,
-	{ name: string; subcategories: string[] }
->;
+} as const satisfies Record<string, { name: string; subcategories: string[] }>;
 
 export const Category = Object.fromEntries(
 	Object.entries(CategoryDefinitions).map(([key, { name }]) => [
 		key,
 		slugify(name),
-	]),
+	])
 ) as { [K in keyof typeof CategoryDefinitions]: string };
 
 export type CategoryId = (typeof Category)[keyof typeof Category];
@@ -95,16 +92,14 @@ export type CategoryType = {
 };
 
 export const categories: CategoryType[] = Object.entries(
-	CategoryDefinitions,
-).map(([key, { name, subcategories }]) => ({
+	CategoryDefinitions
+).map(([_key, { name, subcategories }]) => ({
 	name,
 	id: slugify(name),
 	subcategories,
 }));
 
-export const categoryMap = new Map(
-	categories.map((c) => [c.id, c.name]),
-);
+export const categoryMap = new Map(categories.map((c) => [c.id, c.name]));
 
 /*******************************************************/
 // Raw Product Data (Single Source of Truth)
@@ -184,8 +179,7 @@ const rawProducts: RawProduct[] = [
 			Capacity: "0.33 to 10 Cu.m",
 			Material: "CR Sheets",
 			"Model/Type": "Banana Type,Cow Nose Type,Nova type",
-			Usage:
-				"Shifting of Concrete in tower cranes,Hydra Mobile Crane",
+			Usage: "Shifting of Concrete in tower cranes,Hydra Mobile Crane",
 			"Automation Grade": "Manual",
 			"Sheet Thickness": "3 mm to 5 mm",
 		},
@@ -215,9 +209,7 @@ const rawProducts: RawProduct[] = [
 		name: "Concrete Mixers-Mini Batching Plant Model-RM 1050",
 		categoryId: [Category.concreteBatchingPlant],
 		price: 350000,
-		images: [
-			`${media}/04/Concrete-Mixture-Mini-Batching-Plant-1v1.jpg`,
-		],
+		images: [`${media}/04/Concrete-Mixture-Mini-Batching-Plant-1v1.jpg`],
 		description:
 			"Semi-automatic mini batching plant with 1050L hopper and 750L batch capacity. Produces 12-15 Cu.m/hour with 12.5 HP main motor, three-bin hopper with load cells, and integrated printer control panel.",
 		specifications: {
@@ -230,8 +222,7 @@ const rawProducts: RawProduct[] = [
 			Wheels: "4 nos, 6-16 with bearing 63011",
 			"Control Panel with Printer": "Semi Automatic",
 			"Water Pump Motor": "0.5 HP for feeding & 1 HP for Discharge",
-			"Hopper Type / Load Cell":
-				"Three Bin Type Hopper with 3 Load Cell",
+			"Hopper Type / Load Cell": "Three Bin Type Hopper with 3 Load Cell",
 			"Drum Length / Drum Diameter": "2000 mm / 1400 mm",
 			"Drum Blade / Discharge Blade": "10 mm / 8 mm",
 			"Jack Levelling": "Pin Type / Screw Type (4 Nos)",
@@ -437,8 +428,7 @@ const rawProducts: RawProduct[] = [
 			"Wire Rope Length": "30 Mtr",
 			"Hoisting Speed": "30 Mtr/Min",
 			"Thickness Wire Rope": "7 mm",
-			Includes:
-				"Wire Rope Guiding, Voltage Meter, Big Hook, Metal Body Fan",
+			Includes: "Wire Rope Guiding, Voltage Meter, Big Hook, Metal Body Fan",
 			"Frame Weight": "65 KGs",
 		},
 	},
@@ -651,9 +641,7 @@ const rawProducts: RawProduct[] = [
 		name: "VST Shakti Group Cutter With Diesel Engine",
 		categoryId: [Category.concreteCuttingMachine],
 		price: 70000,
-		images: [
-			`${media}/04/VST-Shakti-Group-Cutter-With-Diesel-Engine-3.jpg`,
-		],
+		images: [`${media}/04/VST-Shakti-Group-Cutter-With-Diesel-Engine-3.jpg`],
 		description:
 			"95kg diesel-powered concrete cutter with 5-9 HP engine and 12-20 inch blade size. Features 160mm max cutting depth, 25L water tank, manual push drive, and handle rotation depth adjustment.",
 		specifications: {
@@ -764,7 +752,7 @@ export const productDatabase: Record<string, ProductDetailsType> =
 				description: p.description,
 				specifications: p.specifications,
 			},
-		]),
+		])
 	);
 
 // 2. Products List (for shop page) - lightweight version
@@ -772,9 +760,7 @@ export const products: ProductListItem[] = rawProducts.map((p) => ({
 	id: p.id,
 	name: p.name,
 	price: p.price,
-	category: p.categoryId
-		.map((id) => categoryMap.get(id) || id)
-		.join(", "),
+	category: p.categoryId.map((id) => categoryMap.get(id) || id).join(", "),
 	categoryId: p.categoryId,
 	image: p.images[0],
 	slug: slugify(p.name),

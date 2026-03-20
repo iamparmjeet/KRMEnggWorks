@@ -1,73 +1,86 @@
 {
-  "$schema": "https://biomejs.dev/schemas/2.2.0/schema.json",
-  "vcs": {
-    "enabled": true,
-    "clientKind": "git",
-    "useIgnoreFile": true
-  },
-  "files": {
-    "ignoreUnknown": true,
-    "includes": ["**", "!node_modules", "!.next", "!dist", "!build", "!.turbo"]
-  },
-  "formatter": {
-    "enabled": true,
-    "indentStyle": "space",
-    "indentWidth": 2,
-    "lineWidth": 80,
-    "attributePosition": "auto"
-  },
-  "linter": {
-    "enabled": true,
-    "rules": {
-      "recommended": true,
-      "a11y": {
-        "useIframeTitle": "off"
-      },
-      "suspicious": {
-        "noUnknownAtRules": "off"
-      },
-      "correctness": {
-        "noUnusedImports": "error",
-        "noUnusedVariables": "warn"
-      },
-      "style": {
-        "useImportType": "error",
-        "useNodejsImportProtocol": "error"
-      }
-    },
-    "domains": {
-      "next": "recommended",
-      "react": "recommended"
-    }
-  },
-  "assist": {
-    "actions": {
-      "source": {
-        "organizeImports": "on"
-      }
-    }
-  },
-  "javascript": {
-    "formatter": {
-      "quoteStyle": "double",
-      "jsxQuoteStyle": "double",
-      "trailingCommas": "es5",
-      "semicolons": "always",
-      "arrowParentheses": "always",
-      "bracketSpacing": true,
-      "bracketSameLine": false
-    },
-    "globals": ["React", "JSX"]
-  },
-  "css": {
-    "parser": {
-      "cssModules": true
-    },
-    "formatter": {
-      "enabled": true
-    },
-    "linter": {
-      "enabled": true
-    }
-  }
+	"$schema": "https://biomejs.dev/schemas/2.2.0/schema.json",
+	"vcs": {
+		"enabled": true,
+		"clientKind": "git",
+		"useIgnoreFile": true
+	},
+	"files": {
+		"ignoreUnknown": true,
+		"includes": [
+			"**",
+			"!node_modules",
+			"!.next",
+			"!dist",
+			"!build",
+			"!.turbo",
+			"!.zed",
+			"!.vscode"
+		]
+	},
+	"formatter": {
+		"enabled": true,
+		"indentStyle": "tab",
+		"indentWidth": 2,
+		"lineWidth": 80,
+		"attributePosition": "auto"
+	},
+	"linter": {
+		"enabled": true,
+		"rules": {
+			"recommended": true,
+			"a11y": {
+				"useIframeTitle": "off",
+				"useSemanticElements": "warn"
+			},
+			"suspicious": {
+				"noUnknownAtRules": "off"
+			},
+			"correctness": {
+				"noUnusedImports": "error",
+				"noUnusedVariables": {
+					"level": "warn",
+					"fix": "safe"
+				}
+			},
+			"style": {
+				"useImportType": "warn",
+				"useNodejsImportProtocol": "warn"
+			}
+		},
+		"domains": {
+			"next": "recommended",
+			"react": "recommended"
+		}
+	},
+	"assist": {
+		"actions": {
+			"source": {
+				"organizeImports": "on"
+			}
+		}
+	},
+	"javascript": {
+		"formatter": {
+			"quoteStyle": "double",
+			"jsxQuoteStyle": "double",
+			"trailingCommas": "es5",
+			"semicolons": "always",
+			"arrowParentheses": "always",
+			"bracketSpacing": true,
+			"bracketSameLine": false
+		},
+		"globals": ["React", "JSX"]
+	},
+	"css": {
+		"parser": {
+			"cssModules": true
+		},
+		"formatter": {
+			"enabled": true
+		},
+		"linter": {
+			"enabled": true
+		}
+	}
 }

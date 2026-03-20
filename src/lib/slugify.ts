@@ -9,10 +9,7 @@ export function slugify(text: string): string {
 }
 
 // Generate unique slug with optional ID suffix for duplicates
-export function generateSlug(
-	name: string,
-	id?: number | string,
-): string {
+export function generateSlug(name: string, id?: number | string): string {
 	const baseSlug = slugify(name);
 	return id ? `${baseSlug}-${id}` : baseSlug;
 }

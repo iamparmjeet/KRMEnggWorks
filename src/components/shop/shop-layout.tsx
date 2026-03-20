@@ -46,14 +46,13 @@ export function ShopLayout({
 		return baseProducts.filter(
 			(p) =>
 				p.name.toLowerCase().includes(lower) ||
-				p.category.toLowerCase().includes(lower),
+				p.category.toLowerCase().includes(lower)
 		).length;
 	}, [baseProducts, search]);
 
-	const activeFiltersCount = [
-		filters.category,
-		filters.subcategory,
-	].filter(Boolean).length;
+	const activeFiltersCount = [filters.category, filters.subcategory].filter(
+		Boolean
+	).length;
 
 	// Mobile filter button passed as a slot into the toolbar
 	const mobileFilterButton = (

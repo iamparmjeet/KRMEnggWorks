@@ -5,14 +5,14 @@ import {
 	productDatabase,
 	products,
 } from "@/constants";
-import type { SortOption } from "./types";
+import type { SortOption } from "@/lib/types";
 
 /*************************/
 // Types
 
 type RelatedProductsOptions = {
 	limit?: number;
-	sortBy?: "price-asc" | "price-desc" | "name" | "relevance";
+	sortBy?: SortOption;
 	excludeSlugs?: string[];
 };
 
@@ -20,16 +20,6 @@ type SearchOptions = {
 	fuzzy?: boolean;
 	limit?: number;
 	sortBy?: SortOption;
-};
-
-type PaginationResult<T> = {
-	data: T[];
-	total: number;
-	page: number;
-	perPage: number;
-	totalPages: number;
-	hasNext: boolean;
-	hasPrev: boolean;
 };
 
 /*****************************************************/
@@ -41,46 +31,42 @@ const categoryIndex: Map<CategoryId, Set<string>> = (() => {
 			if (!index.has(catId as CategoryId)) {
 				index.set(catId as CategoryId, new Set());
 			}
-			index.get(catId as CategoryId)!.add(product.slug);
+			index.get(catId as CategoryId)?.add(product.slug);
 		}
 	}
 	return index;
 })();
 
-// Search
+// Search index
 const searchIndex: Map<string, Set<string>> = (() => {
 	const index = new Map<string, Set<string>>();
 
 	for (const product of products) {
 		const nameWords = product.name.toLowerCase().split(/\s+/);
-		const categoryWords = product.category
-			.toLowerCase()
-			.split(/[,\s]+/);
+		const categoryWords = product.category.toLowerCase().split(/[,\s]+/);
 		const allWords = [...new Set([...nameWords, ...categoryWords])];
 
 		for (const word of allWords) {
 			const cleanWord = word.replace(/[^a-z0-9]/g, "");
-			if (cleanWord.length < 2) continue; // skipping Short Words
+			if (cleanWord.length < 2) continue;
 
 			if (!index.has(cleanWord)) {
 				index.set(cleanWord, new Set());
 			}
-			index.get(cleanWord)!.add(product.slug);
+			index.get(cleanWord)?.add(product.slug);
 		}
 	}
 	return index;
 })();
 
-//  Product Lookup by Slug
+// Product lookup by slug
 const productBySlug = new Map(products.map((p) => [p.slug, p]));
 
 /***********************************************************/
-// Get Product Details by Slug with strict validation
-export function getProductBySlug(
-	slug: string,
-): ProductDetailsType | undefined {
+
+export function getProductBySlug(slug: string): ProductDetailsType | undefined {
 	if (!slug || typeof slug !== "string") {
-		console.warn(`[getProductBySlug] Invalid Slug provides: ${slug}`);
+		console.warn(`[getProductBySlug] Invalid slug provided: ${slug}`);
 		return undefined;
 	}
 	const normalizedSlug = slug.toLowerCase().trim();
@@ -90,26 +76,17 @@ export function getProductBySlug(
 export function getRelatedProducts(
 	currentSlug: string,
 	categoryIds: CategoryId[],
-	options: RelatedProductsOptions = {},
+	options: RelatedProductsOptions = {}
 ): ProductListItem[] {
-	const {
-		limit = 3,
-		sortBy = "relevance",
-		excludeSlugs = [],
-	} = options;
+	const { limit = 3, sortBy = "relevance", excludeSlugs = [] } = options;
 
-	// Validation
 	if (!currentSlug || !Array.isArray(categoryIds)) {
 		console.warn("[getRelatedProducts] Invalid Parameters");
 		return [];
 	}
 
-	// if empty
-	if (categoryIds.length === 0) {
-		return [];
-	}
+	if (categoryIds.length === 0) return [];
 
-	// Normalize Inputs
 	const normalizedCurrent = currentSlug.toLowerCase().trim();
 	const normalizedExcludes = new Set([
 		normalizedCurrent,
@@ -118,7 +95,6 @@ export function getRelatedProducts(
 
 	const relatedSlugs = new Set<string>();
 
-	// Where number of categories small
 	for (const cateId of categoryIds) {
 		const slugsInCategory = categoryIndex.get(cateId);
 		if (slugsInCategory) {
@@ -130,24 +106,18 @@ export function getRelatedProducts(
 		}
 	}
 
-	// Convert to products array
 	let results = Array.from(relatedSlugs)
 		.map((slug) => productBySlug.get(slug))
 		.filter((p): p is ProductListItem => p !== undefined);
 
-	// Sorting
 	results = sortProducts(results, sortBy);
 
-	// Limit with validation
 	const safeLimit = Math.max(1, Math.min(limit, 100));
 	return results.slice(0, safeLimit);
 }
 
-export function getProductsByCategory(
-	categoryId: string,
-): ProductListItem[] {
+export function getProductsByCategory(categoryId: string): ProductListItem[] {
 	if (!categoryId) return [];
-
 	const slugs = categoryIndex.get(categoryId);
 	if (!slugs) return [];
 
@@ -156,16 +126,13 @@ export function getProductsByCategory(
 		.filter((p): p is ProductListItem => p !== undefined);
 }
 
-// Getting Products by MultipleCategories
 export function getProductsByCategories(
 	categoryIds: CategoryId[],
-	options: RelatedProductsOptions = {},
+	options: RelatedProductsOptions = {}
 ): ProductListItem[] {
 	const { limit = 3, sortBy = "name", excludeSlugs = [] } = options;
 
-	if (!Array.isArray(categoryIds) || categoryIds.length === 0) {
-		return [];
-	}
+	if (!Array.isArray(categoryIds) || categoryIds.length === 0) return [];
 
 	const uniqueSlugs = new Set<string>();
 
@@ -181,27 +148,23 @@ export function getProductsByCategories(
 	let results = Array.from(uniqueSlugs)
 		.map((slug) => productBySlug.get(slug))
 		.filter((p): p is ProductListItem => p !== undefined);
+
 	results = sortProducts(results, sortBy);
 
 	return limit ? results.slice(0, Math.max(1, limit)) : results;
 }
 
-/******************************************/
-// search
 export function searchProducts(
 	query: string,
-	options: SearchOptions = {},
+	options: SearchOptions = {}
 ): ProductListItem[] {
 	const { fuzzy = false, limit, sortBy = "relevance" } = options;
 
-	if (!query || typeof query !== "string") {
-		return [];
-	}
+	if (!query || typeof query !== "string") return [];
 
 	const normalizedQuery = query.toLowerCase().trim();
 	if (normalizedQuery.length === 0) return [];
 
-	// Single word exact match using index
 	if (!normalizedQuery.includes(" ") && !fuzzy) {
 		const exactMatches = searchIndex.get(normalizedQuery);
 		if (exactMatches) {
@@ -218,56 +181,48 @@ export function searchProducts(
 	return products.filter(
 		(p) =>
 			p.name.toLowerCase().includes(lowerQuery) ||
-			p.category.toLowerCase().includes(lowerQuery),
+			p.category.toLowerCase().includes(lowerQuery)
 	);
 }
 
 /*************************************/
-// Helper Functions
+// Helper: sort products
 
 function sortProducts(
 	products: ProductListItem[],
-	sortBy: RelatedProductsOptions["sortBy"],
-	query?: string,
+	sortBy: SortOption | undefined,
+	query?: string
 ): ProductListItem[] {
 	const sorted = [...products];
 
 	switch (sortBy) {
 		case "price-asc":
+		case "price-low":
 			return sorted.sort((a, b) => a.price - b.price);
 
 		case "price-desc":
+		case "price-high":
 			return sorted.sort((a, b) => b.price - a.price);
 
 		case "name":
 			return sorted.sort((a, b) => a.name.localeCompare(b.name));
 
-		case "relevance":
+		case "newest":
+			return sorted.sort((a, b) => b.id - a.id);
 		default:
 			if (query) {
-				// Boost exact name matches
 				const lowerQuery = query.toLowerCase();
 				return sorted.sort((a, b) => {
-					const aExact = a.name.toLowerCase().includes(lowerQuery)
-						? 2
-						: 0;
-					const bExact = b.name.toLowerCase().includes(lowerQuery)
-						? 2
-						: 0;
-					const aPartial = a.name.toLowerCase().includes(lowerQuery)
-						? 1
-						: 0;
-					const bPartial = b.name.toLowerCase().includes(lowerQuery)
-						? 1
-						: 0;
-					return bExact + bPartial - (aExact + aPartial);
+					const aScore = a.name.toLowerCase().includes(lowerQuery) ? 2 : 0;
+					const bScore = b.name.toLowerCase().includes(lowerQuery) ? 2 : 0;
+					return bScore - aScore;
 				});
 			}
 			return sorted;
 	}
 }
 
-// Stat
+// Category product counts
 export function getCategoryStats(): Record<string, number> {
 	const stats: Record<string, number> = {};
 	for (const [catId, slugs] of categoryIndex) {

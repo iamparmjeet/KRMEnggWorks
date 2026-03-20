@@ -68,7 +68,7 @@ const SubcategoryItem = memo(function SubcategoryItem({
 				.toLowerCase()
 				.replace(/\s+/g, "-")
 				.replace(/[^a-z0-9-]/g, ""),
-		[subcategory],
+		[subcategory]
 	);
 
 	return (
@@ -79,7 +79,7 @@ const SubcategoryItem = memo(function SubcategoryItem({
 				className={cn(
 					"flex items-center py-1.5 px-3 text-sm transition-colors rounded-md",
 					"hover:bg-yellow hover:text-accent-foreground",
-					isActive && "bg-yellow text-accent-foreground font-medium",
+					isActive && "bg-yellow text-accent-foreground font-medium"
 				)}
 				aria-current={isActive ? "page" : undefined}
 			>
@@ -120,7 +120,7 @@ const CategorySection = memo(function CategorySection({
 						"w-full flex items-center justify-between py-2.5 px-3 text-sm font-medium transition-colors text-left",
 						"hover:bg-yellow cursor-pointer hover:text-accent-foreground",
 						isActive && "bg-yellow text-accent-foreground",
-						!hasProducts && "opacity-60",
+						!hasProducts && "opacity-60"
 					)}
 					aria-expanded={isExpanded}
 				>
@@ -128,7 +128,7 @@ const CategorySection = memo(function CategorySection({
 						<ChevronDown
 							className={cn(
 								"h-4 w-4 transition-transform duration-200 shrink-0",
-								!isExpanded && "-rotate-90",
+								!isExpanded && "-rotate-90"
 							)}
 						/>
 						<span className="truncate">{category.name}</span>
@@ -147,7 +147,7 @@ const CategorySection = memo(function CategorySection({
 						"w-full flex items-center justify-between py-2.5 px-3 text-sm font-medium transition-colors",
 						"hover:bg-yellow cursor-pointer hover:text-accent-foreground",
 						isActive && "bg-yellow text-accent",
-						!hasProducts && "opacity-60 pointer-events-none",
+						!hasProducts && "opacity-60 pointer-events-none"
 					)}
 					aria-current={isActive ? "page" : undefined}
 				>
@@ -156,7 +156,7 @@ const CategorySection = memo(function CategorySection({
 						<span
 							className={cn(
 								"text-xs px-2 py-0.5 rounded-full shrink-0",
-								isActive ? "bg-yellow" : " text-accent",
+								isActive ? "bg-yellow" : " text-accent"
 							)}
 						>
 							{category.productCount}
@@ -225,23 +225,22 @@ export const ShopSidebar = memo(function ShopSidebar({
 	onNavigate?: () => void;
 }) {
 	const { filters, clearFilters } = useShopFilters();
-	const { category: activeCategory, subcategory: activeSubcategory } =
-		filters;
+	const { category: activeCategory, subcategory: activeSubcategory } = filters;
 
-	const [expandedCategories, setExpandedCategories] = useState<
-		Set<string>
-	>(() => {
-		const initial = new Set<string>();
-		categoriesMeta.forEach((cat) => {
-			if (
-				cat.productCount > 0 &&
-				(activeCategory === cat.slug || cat.subcategories.length > 0)
-			) {
-				initial.add(cat.slug);
-			}
-		});
-		return initial;
-	});
+	const [expandedCategories, setExpandedCategories] = useState<Set<string>>(
+		() => {
+			const initial = new Set<string>();
+			categoriesMeta.forEach((cat) => {
+				if (
+					cat.productCount > 0 &&
+					(activeCategory === cat.slug || cat.subcategories.length > 0)
+				) {
+					initial.add(cat.slug);
+				}
+			});
+			return initial;
+		}
+	);
 
 	const toggleCategory = useCallback((slug: string) => {
 		setExpandedCategories((prev) => {
@@ -253,9 +252,8 @@ export const ShopSidebar = memo(function ShopSidebar({
 	}, []);
 
 	const isExpanded = useCallback(
-		(slug: string) =>
-			expandedCategories.has(slug) || activeCategory === slug,
-		[expandedCategories, activeCategory],
+		(slug: string) => expandedCategories.has(slug) || activeCategory === slug,
+		[expandedCategories, activeCategory]
 	);
 
 	const handleClear = useCallback(() => {
@@ -288,8 +286,7 @@ export const ShopSidebar = memo(function ShopSidebar({
 								className={cn(
 									"flex items-center py-2.5 px-3 text-sm font-medium transition-colors",
 									"hover:bg-yellow hover:text-accent-foreground",
-									!activeCategory &&
-										"bg-yellow text-accent-foreground",
+									!activeCategory && "bg-yellow text-accent-foreground"
 								)}
 							>
 								All Products

@@ -31,9 +31,7 @@ const contactSchema = z.object({
 		.string()
 		.regex(/^[0-9\s\-+()]+$/, "Please enter a valid mobile number"),
 	email: z.email("Please enter a valid email address"),
-	message: z
-		.string()
-		.min(10, "Message must be at least 10 characters"),
+	message: z.string().min(10, "Message must be at least 10 characters"),
 });
 
 type ContactFormData = z.infer<typeof contactSchema>;
@@ -58,9 +56,7 @@ export default function Contact() {
 	);
 }
 
-interface ContactFormFieldProps<
-	T extends FieldValues = ContactFormData,
-> {
+interface ContactFormFieldProps<T extends FieldValues = ContactFormData> {
 	control: Control<T>;
 	name: FieldPath<T>;
 	label: string;
@@ -148,8 +144,7 @@ function ContactForm() {
 						Message Sent!
 					</h3>
 					<p className="text-green-800">
-						Thank you for contacting us. We'll get back to you within
-						24 hours.
+						Thank you for contacting us. We'll get back to you within 24 hours.
 					</p>
 				</div>
 			</div>
@@ -168,16 +163,13 @@ function ContactForm() {
 				<p className="text-accent text-base font-medium leading-relaxed">
 					Have questions or want to chat?
 					<br />
-					Fill out our contact form, and we'll put you in touch with
-					the right people.
+					Fill out our contact form, and we'll put you in touch with the right
+					people.
 				</p>
 			</div>
 
 			<Form {...form}>
-				<form
-					onSubmit={form.handleSubmit(onSubmit)}
-					className="space-y-4"
-				>
+				<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
 					<ContactFormField
 						control={form.control}
 						name="name"
@@ -264,9 +256,7 @@ function ContactInfo() {
 								target="_blank"
 								className="text-gray-300 transition-colors group-hover:text-sky"
 							>
-								<h4 className="text-2xl font-semibold">
-									{item.text}
-								</h4>
+								<h4 className="text-2xl font-semibold">{item.text}</h4>
 								<p className="text-base font-medium">{item.label}</p>
 							</Link>
 						</li>

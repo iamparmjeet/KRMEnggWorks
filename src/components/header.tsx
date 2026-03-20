@@ -3,12 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import {
-	IconCaretDown,
-	IconMenu,
-	IconShoppingCart,
-	IconX,
-} from "tabler-icons";
+import { IconCaretDown, IconMenu, IconShoppingCart, IconX } from "tabler-icons";
 import { Button } from "@/components/ui/button";
 import { categories } from "@/constants";
 import { cn } from "@/lib/utils";
@@ -82,7 +77,7 @@ function DesktopNav({ navItems }: DesktopNavProps) {
 								"text-lg font-semibold font-cambo transition-colors flex items-center gap-2 px-3 py-3",
 								isActive
 									? "text-yellow border-b-2"
-									: "text-white hover:text-yellow",
+									: "text-white hover:text-yellow"
 							)}
 						>
 							{item.label}
@@ -132,7 +127,7 @@ function MobileNav({ navItems, isOpen, onClose }: MobileNavProps) {
 								"block px-4 py-2 text-lg font-medium transition-colors",
 								isActive
 									? "text-white bg-primary"
-									: "text-primary hover:text-yellow-400 hover:bg-slate-800",
+									: "text-primary hover:text-yellow-400 hover:bg-slate-800"
 							)}
 						>
 							{item.label}
@@ -150,21 +145,14 @@ type MobileMenuButtonProps = {
 	onToggle: () => void;
 };
 
-function MobileMenuButton({
-	isOpen,
-	onToggle,
-}: MobileMenuButtonProps) {
+function MobileMenuButton({ isOpen, onToggle }: MobileMenuButtonProps) {
 	return (
 		<Button
 			variant="link"
 			onClick={onToggle}
 			className="md:hidden text-sky hover:text-white transition-colors bg-none"
 		>
-			{isOpen ? (
-				<IconX className="size-8" />
-			) : (
-				<IconMenu className="size-8" />
-			)}
+			{isOpen ? <IconX className="size-8" /> : <IconMenu className="size-8" />}
 		</Button>
 	);
 }

@@ -54,9 +54,7 @@ interface ProductGridProps {
 	products: ProductListItem[];
 }
 
-export function ProductGrid({
-	products: allProducts,
-}: ProductGridProps) {
+export function ProductGrid({ products: allProducts }: ProductGridProps) {
 	const { filters, updateParams } = useShopFilters();
 	const { search, sortBy, page: currentPage } = filters;
 
@@ -69,7 +67,7 @@ export function ProductGrid({
 			result = result.filter(
 				(p) =>
 					p.name.toLowerCase().includes(lower) ||
-					p.category.toLowerCase().includes(lower),
+					p.category.toLowerCase().includes(lower)
 			);
 		}
 
@@ -89,14 +87,11 @@ export function ProductGrid({
 	}, [allProducts, search, sortBy]);
 
 	const totalPages = Math.ceil(filtered.length / ITEMS_PER_PAGE);
-	const safePage = Math.min(
-		Math.max(1, currentPage),
-		totalPages || 1,
-	);
+	const safePage = Math.min(Math.max(1, currentPage), totalPages || 1);
 
 	const paginated = filtered.slice(
 		(safePage - 1) * ITEMS_PER_PAGE,
-		safePage * ITEMS_PER_PAGE,
+		safePage * ITEMS_PER_PAGE
 	);
 
 	return (
@@ -124,35 +119,31 @@ export function ProductGrid({
 									href="#"
 									onClick={(e) => {
 										e.preventDefault();
-										if (safePage > 1)
-											updateParams({ page: safePage - 1 });
+										if (safePage > 1) updateParams({ page: safePage - 1 });
 									}}
 									className={
-										safePage === 1
-											? "pointer-events-none opacity-50"
-											: ""
+										safePage === 1 ? "pointer-events-none opacity-50" : ""
 									}
 								/>
 							</PaginationItem>
 
-							{Array.from(
-								{ length: totalPages },
-								(_, i) => i + 1,
-							).map((pageNum) => (
-								<PaginationItem key={pageNum}>
-									<PaginationLink
-										href="#"
-										onClick={(e) => {
-											e.preventDefault();
-											updateParams({ page: pageNum });
-										}}
-										className="hover:bg-yellow hover:text-black"
-										isActive={safePage === pageNum}
-									>
-										{pageNum}
-									</PaginationLink>
-								</PaginationItem>
-							))}
+							{Array.from({ length: totalPages }, (_, i) => i + 1).map(
+								(pageNum) => (
+									<PaginationItem key={pageNum}>
+										<PaginationLink
+											href="#"
+											onClick={(e) => {
+												e.preventDefault();
+												updateParams({ page: pageNum });
+											}}
+											className="hover:bg-yellow hover:text-black"
+											isActive={safePage === pageNum}
+										>
+											{pageNum}
+										</PaginationLink>
+									</PaginationItem>
+								)
+							)}
 
 							<PaginationItem>
 								<PaginationNext

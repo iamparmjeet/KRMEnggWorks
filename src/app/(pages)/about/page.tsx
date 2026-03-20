@@ -85,10 +85,7 @@ function AboutPoints() {
 	return (
 		<ul className="space-y-3">
 			{AboutPoints.map((point) => (
-				<li
-					key={point.id}
-					className="flex flex-row gap-2 items-center"
-				>
+				<li key={point.id} className="flex flex-row gap-2 items-center">
 					<span>
 						<svg
 							aria-hidden="true"
@@ -119,9 +116,7 @@ function StatSec() {
 						<h2 className="text-primary font-semibold text-xl">
 							Total Number of Employees
 						</h2>
-						<p className="text-lg font-semibold text-black">
-							11 to 25 People
-						</p>
+						<p className="text-lg font-semibold text-black">11 to 25 People</p>
 						<IconUsers />
 					</div>
 
@@ -136,12 +131,8 @@ function StatSec() {
 					</div>
 
 					<div className="p-5 border border-accent rounded-none flex flex-col gap-5 justify-center">
-						<h2 className="text-primary font-semibold text-xl">
-							GST No.
-						</h2>
-						<p className="text-lg font-semibold text-black">
-							09CBCPA879G1ZS
-						</p>
+						<h2 className="text-primary font-semibold text-xl">GST No.</h2>
+						<p className="text-lg font-semibold text-black">09CBCPA879G1ZS</p>
 						<IconFileCertificate />
 					</div>
 				</div>

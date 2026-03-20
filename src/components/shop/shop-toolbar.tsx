@@ -2,10 +2,7 @@
 
 import { IconSearch } from "tabler-icons";
 import { Button } from "@/components/ui/button";
-import {
-	type SortOption,
-	useShopFilters,
-} from "@/hooks/use-shop-filters";
+import { type SortOption, useShopFilters } from "@/hooks/use-shop-filters";
 
 interface ShopToolbarProps {
 	totalResults: number;
@@ -23,8 +20,7 @@ export function ShopToolbar({
 }: ShopToolbarProps) {
 	const { filters, updateParams } = useShopFilters();
 
-	const start =
-		totalResults > 0 ? (currentPage - 1) * itemsPerPage + 1 : 0;
+	const start = totalResults > 0 ? (currentPage - 1) * itemsPerPage + 1 : 0;
 	const end = Math.min(currentPage * itemsPerPage, totalResults);
 
 	return (
@@ -37,9 +33,7 @@ export function ShopToolbar({
 						type="text"
 						placeholder="Search..."
 						value={filters.search}
-						onChange={(e) =>
-							updateParams({ search: e.target.value, page: 1 })
-						}
+						onChange={(e) => updateParams({ search: e.target.value, page: 1 })}
 						className="px-4 py-2 h-13 flex-1 md:flex-none text-slate-900 placeholder-slate-500 outline-none"
 					/>
 					<Button
