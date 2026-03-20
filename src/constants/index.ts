@@ -7,6 +7,10 @@ export {
 	Socials,
 } from "./data";
 export {
+	Category,
+	type CategoryId,
+	type CategoryKey,
+	type CategoryType,
 	categories,
 	categoryMap,
 	type ProductDetailsType,
