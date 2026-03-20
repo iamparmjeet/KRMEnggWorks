@@ -20,7 +20,7 @@
 	- [x] Related Product link
 - [x] Product category Page
 - [x] Cart
-- [ ] Privacy
+- [ ] Terms and condition
 - [x] 404
 - [x] PopUp
 - [ ] Email Link with CF
