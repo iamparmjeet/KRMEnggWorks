@@ -69,15 +69,14 @@ export default function ErrorPage({ error, reset }: ErrorProps) {
 				</h1>
 
 				<p className="text-slate-400 text-lg mb-3 leading-relaxed">
-					An unexpected error occurred. Our team has been notified and
-					we're working to fix it.
+					An unexpected error occurred. Our team has been notified and we're
+					working to fix it.
 				</p>
 
 				{/* Error digest for debugging */}
 				{error.digest && (
 					<p className="text-slate-600 text-xs font-mono mb-8">
-						Error ID:{" "}
-						<span className="text-slate-500">{error.digest}</span>
+						Error ID: <span className="text-slate-500">{error.digest}</span>
 					</p>
 				)}
 
@@ -103,10 +102,7 @@ export default function ErrorPage({ error, reset }: ErrorProps) {
 				{/* Contact note */}
 				<p className="mt-10 text-slate-600 text-sm">
 					Issue persisting?{" "}
-					<Link
-						href="/contact"
-						className="text-yellow-400 hover:underline"
-					>
+					<Link href="/contact" className="text-yellow-400 hover:underline">
 						Contact us
 					</Link>{" "}
 					and we'll sort it out.

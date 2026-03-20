@@ -1,7 +1,7 @@
 "use client";
 
 import { IconMinus, IconPhone, IconPlus } from "@tabler/icons-react";
-import {  useCallback, useState } from "react";
+import { useCallback, useState } from "react";
 import { QuoteModal } from "@/components/cart/quote-model";
 import { SocialsBox } from "@/components/socials";
 import { Button } from "@/components/ui/button";

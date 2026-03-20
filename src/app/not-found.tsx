@@ -64,8 +64,8 @@ export default function NotFound() {
 				</h1>
 
 				<p className="text-slate-400 text-lg mb-10 leading-relaxed">
-					The page you're looking for has been moved, removed, or never
-					existed. Let's get you back to the equipment you need.
+					The page you're looking for has been moved, removed, or never existed.
+					Let's get you back to the equipment you need.
 				</p>
 
 				{/* Actions */}

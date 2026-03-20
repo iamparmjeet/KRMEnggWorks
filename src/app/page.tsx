@@ -14,7 +14,7 @@ import {
 	CarouselPrevious,
 } from "@/components/ui/carousel";
 import { Separator } from "@/components/ui/separator";
-import { media, productCardBg } from "@/constants/data";
+import { media } from "@/constants/data";
 
 export default function Home() {
 	return (
@@ -42,7 +42,7 @@ function HeroSec() {
 					width={1200}
 					height={700}
 					alt="Hero-bg"
-					className="bg-center bg-cover w-full"
+					className="bg-center bg-cover h-auto w-full"
 					preload
 				/>
 			</div>
@@ -76,7 +76,7 @@ function HeroSec() {
 							width={500}
 							height={500}
 							alt="Hero-Product-1"
-							className="bg-center bg-cover w-full shadow-md"
+							className="bg-center bg-cover w-full h-auto shadow-md"
 							preload
 						/>
 						<Image
@@ -84,7 +84,7 @@ function HeroSec() {
 							width={500}
 							height={500}
 							alt="Hero-Product-2"
-							className="bg-center bg-cover w-full shadow-md"
+							className="bg-center bg-cover w-full h-auto shadow-md"
 							preload
 						/>
 						<Image
@@ -92,7 +92,7 @@ function HeroSec() {
 							width={500}
 							height={500}
 							alt="Hero-Product-3"
-							className="bg-center bg-cover w-full shadow-md"
+							className="bg-center bg-cover w-full h-auto shadow-md"
 							preload
 						/>
 						<Image
@@ -100,7 +100,7 @@ function HeroSec() {
 							width={500}
 							height={500}
 							alt="Hero-Product-4"
-							className="bg-center bg-cover w-full shadow-md"
+							className="bg-center bg-cover w-full h-auto shadow-md"
 							preload
 						/>
 					</div>
@@ -254,14 +254,7 @@ function ProvideSection() {
 				<div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
 					{allProducts.map((product) => (
 						<Link key={product.id} href={product.link}>
-							<div className="relative group border border-black rounded-none overflow-hidden h-full px-8 py-10  hover:bg-yellow transition-colors shadow">
-								<Image
-									src={productCardBg}
-									width={80}
-									height={160}
-									alt="bg-image"
-									className="hidden absolute group-hover:flex right-0 top-40 z-0 pointer-events-none transition-all"
-								/>
+							<div className="relative group border border-black rounded-none overflow-hidden h-full px-8 py-10  hover:bg-yellow transition-all shadow">
 								<h4 className="text-2xl font-semibold text-blue-950 mb-4">
 									{product.name}
 								</h4>
@@ -270,6 +263,7 @@ function ProvideSection() {
 									width={300}
 									height={300}
 									alt={product.name}
+									sizes="(max-width: 768px) 100vw, 33vw"
 									className="z-10 overflow-hidden relative"
 								/>
 								<p className="text-slate-900 text-lg font-medium my-5">
@@ -365,11 +359,14 @@ function BestSellingSec() {
 										alt={product.name}
 										width={200}
 										height={200}
+										sizes="(max-width: 1024px) 50vw, 33vw"
 										className="bg-center w-xl"
 									/>
-									<Separator  />
+									<Separator />
 									<div className="p-6 space-y-4">
-										<h3 className="text-xl font-semibold text-blue-950">{product.name}</h3>
+										<h3 className="text-xl font-semibold text-blue-950">
+											{product.name}
+										</h3>
 										<Link href={product.link}>
 											<Button className="bg-yellow text-blue-950 hover:bg-blue-950 hover:text-white">
 												Read more

@@ -1,6 +1,14 @@
 "use client";
 
-import { IconArrowLeft, IconCheck, IconMinus, IconPlus, IconSend, IconShoppingCart, IconTrash } from "@tabler/icons-react";
+import {
+	IconArrowLeft,
+	IconCheck,
+	IconMinus,
+	IconPlus,
+	IconSend,
+	IconShoppingCart,
+	IconTrash,
+} from "@tabler/icons-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
@@ -112,7 +120,7 @@ export default function CartPage() {
 				<PTB heading="Enquiry Sent!" subheading="We'll be in touch shortly" />
 				<div className="max-w-2xl mx-auto px-4 py-20 text-center">
 					<IconCheck className="h-20 w-20 text-green-500 mx-auto mb-6" />
-					<h2 className="text-2xl font-bold text-[#0d1b2a] mb-2">
+					<h2 className="text-2xl font-bold text-blue-950 mb-2">
 						Thank you, {form.name}!
 					</h2>
 					<p className="text-slate-500 mb-2">
@@ -162,7 +170,7 @@ export default function CartPage() {
 								</h2>
 								<Button
 									onClick={clearCart}
-									className="text-xs text-slate-900 hover:text-red-500 underline transition-colors"
+									className="text-xs bg-slate-50 text-slate-900 hover:text-red-500 underline transition-colors"
 								>
 									Clear all
 								</Button>
@@ -202,7 +210,7 @@ export default function CartPage() {
 													onClick={() =>
 														updateQuantity(item.id, item.quantity - 1)
 													}
-													className="px-3 py-1.5 hover:bg-slate-200 transition-colors"
+													className="px-3 py-1.5 hover:bg-slate-400 transition-colors"
 												>
 													<IconMinus className="h-3 w-3" />
 												</Button>
@@ -213,7 +221,7 @@ export default function CartPage() {
 													onClick={() =>
 														updateQuantity(item.id, item.quantity + 1)
 													}
-													className="px-3 py-1.5 hover:bg-slate-200 transition-colors"
+													className="px-3 py-1.5  hover:bg-slate-400 transition-colors"
 												>
 													<IconPlus className="h-3 w-3" />
 												</Button>
@@ -222,7 +230,7 @@ export default function CartPage() {
 											{/* Line total */}
 											<div className="flex items-center gap-3">
 												{item.price > 0 && (
-													<span className="text-sm font-bold text-[#0d1b2a]">
+													<span className="text-sm font-bold text-blue-950">
 														₹
 														{(item.price * item.quantity).toLocaleString(
 															"en-IN"
@@ -231,7 +239,7 @@ export default function CartPage() {
 												)}
 												<Button
 													onClick={() => removeItem(item.id)}
-													className="p-1.5 text-blue-950 hover:text-red-500 transition-colors"
+													className="p-1.5 bg-slate-100 text-blue-950 hover:text-red-500 transition-colors"
 												>
 													<IconTrash className="h-4 w-4" />
 												</Button>

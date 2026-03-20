@@ -1,6 +1,11 @@
 "use client";
 
-import { IconCaretDown, IconMenu, IconShoppingCart, IconX } from "@tabler/icons-react";
+import {
+	IconCaretDown,
+	IconMenu,
+	IconShoppingCart,
+	IconX,
+} from "@tabler/icons-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
@@ -159,7 +164,7 @@ function MobileMenuButton({ isOpen, onToggle }: MobileMenuButtonProps) {
 }
 
 function CartBox() {
-	const {totalItems} = useCartStore()
+	const { totalItems } = useCartStore();
 	return (
 		<div className="hidden md:flex gap-4">
 			<Link href="/cart">
@@ -169,7 +174,11 @@ function CartBox() {
 					className="h-15 w-14 p-4 bg-yellow hover:bg-white border-2 hover:border-yellow cursor-pointer text-blue-950 relative"
 				>
 					<IconShoppingCart className="size-6" />
-					<span className={`absolute -bottom-3 -right-2 size-7 rounded-full ${totalItems() > 0 ? "flex" : "hidden"} items-center justify-center bg-white`}>{totalItems() >= 1 ? totalItems() : ""}</span>
+					<span
+						className={`absolute -bottom-3 -right-2 size-7 rounded-full ${totalItems() > 0 ? "flex" : "hidden"} items-center justify-center bg-white`}
+					>
+						{totalItems() >= 1 ? totalItems() : ""}
+					</span>
 				</Button>
 			</Link>
 

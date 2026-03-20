@@ -1,7 +1,12 @@
 "use client";
-;
 
-import { IconMinus, IconPlus, IconShoppingCart, IconTrash, IconX } from "@tabler/icons-react";
+import {
+	IconMinus,
+	IconPlus,
+	IconShoppingCart,
+	IconTrash,
+	IconX,
+} from "@tabler/icons-react";
 import Image from "next/image";
 import Link from "next/link";
 import { cn } from "@/lib/utils";

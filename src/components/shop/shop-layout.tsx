@@ -57,20 +57,22 @@ export function ShopLayout({
 	// Mobile filter button passed as a slot into the toolbar
 	const mobileFilterButton = (
 		<Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
-			<SheetTrigger asChild>
-				<Button
-					variant="outline"
-					className="lg:hidden flex items-center gap-2 border-black h-13 px-3 shrink-0"
-				>
-					<IconFilter className="h-4 w-4" />
-					<span className="hidden sm:inline">Filters</span>
-					{activeFiltersCount > 0 && (
-						<span className="flex h-5 w-5 items-center justify-center rounded-full bg-yellow text-blue-950 text-xs font-bold">
-							{activeFiltersCount}
-						</span>
-					)}
-				</Button>
-			</SheetTrigger>
+			<SheetTrigger
+				render={
+					<Button
+						variant="outline"
+						className="lg:hidden flex items-center gap-2 border-black h-13 px:3 shrink-0"
+					>
+						<IconFilter className="h-4 w-4" />
+						<span className="hidden sm:inline">Filters</span>
+						{activeFiltersCount > 0 && (
+							<span className="flex h-5 w-5 items-center justify-center rounded-full bg-yellow text-blue-950 text-xs font-bold">
+								{activeFiltersCount}
+							</span>
+						)}
+					</Button>
+				}
+			/>
 			<SheetContent side="left" className="w-80 p-0 overflow-y-auto">
 				<SheetHeader className="px-4 py-3 border-b">
 					<SheetTitle className="flex items-center gap-2 text-base">

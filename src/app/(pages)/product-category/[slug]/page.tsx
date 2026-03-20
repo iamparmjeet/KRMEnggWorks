@@ -38,34 +38,46 @@ export default async function ProductCategoryPage({
 	// Filter products for this category
 	const categoryProducts = products.filter((p) => p.categoryId.includes(slug));
 
-
 	// Further filter by subcategory if ?sub= is present
 	const subSlug = resolvedSearch.sub;
 	const finalProducts = subSlug
-			? categoryProducts.filter((p) => {
-					const matchedSubcategory = category.subcategories.find(
-						(s) => toSlug(s) === subSlug,
-					);
+		? categoryProducts.filter((p) => {
+				const matchedSubcategory = category.subcategories.find(
+					(s) => toSlug(s) === subSlug
+				);
 
-					if (!matchedSubcategory) return false;
+				if (!matchedSubcategory) return false;
 
-					// Extract meaningful words from the subcategory name (skip stop words)
-					const stopWords = new Set([
-						"a", "an", "the", "and", "or", "of", "in", "with",
-						"for", "to", "by", "at", "on", "is", "model",
-					]);
+				// Extract meaningful words from the subcategory name (skip stop words)
+				const stopWords = new Set([
+					"a",
+					"an",
+					"the",
+					"and",
+					"or",
+					"of",
+					"in",
+					"with",
+					"for",
+					"to",
+					"by",
+					"at",
+					"on",
+					"is",
+					"model",
+				]);
 
-					const subKeywords = matchedSubcategory
-						.toLowerCase()
-						.split(/[\s-]+/)
-						.filter((w) => w.length > 2 && !stopWords.has(w));
+				const subKeywords = matchedSubcategory
+					.toLowerCase()
+					.split(/[\s-]+/)
+					.filter((w) => w.length > 2 && !stopWords.has(w));
 
-					const productNameSlug = toSlug(p.name);
+				const productNameSlug = toSlug(p.name);
 
-					// Product matches if its name slug contains ANY of the subcategory keywords
-					return subKeywords.some((kw) => productNameSlug.includes(kw));
-			  })
-			: categoryProducts;
+				// Product matches if its name slug contains ANY of the subcategory keywords
+				return subKeywords.some((kw) => productNameSlug.includes(kw));
+			})
+		: categoryProducts;
 
 	return (
 		<Suspense fallback={<ProductGridSkeleton />}>

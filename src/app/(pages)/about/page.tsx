@@ -125,7 +125,7 @@ function StatSec() {
 			id: 3,
 			heading: "GST No.",
 			subheading: "09CBCPA879G1ZS",
-			icon: <IconFileCertificate />
+			icon: <IconFileCertificate />,
 		},
 	];
 	return (
@@ -133,15 +133,17 @@ function StatSec() {
 			<div className="max-w-7xl mx-auto px-4">
 				<div className="grid grid-cols-1 md:grid-cols-3 gap-6">
 					{STATS.map((p) => (
-						<div key={p.id} className="p-5 border border-blue-950 rounded-none flex flex-col gap-5 justify-center">
+						<div
+							key={p.id}
+							className="p-5 border border-blue-950 rounded-none flex flex-col gap-5 justify-center"
+						>
 							<h2 className="text-blue-950 font-semibold text-xl">
 								{p.heading}
 							</h2>
-							<p className="text-lg font-semibold text-black">{p.subheading }</p>
+							<p className="text-lg font-semibold text-black">{p.subheading}</p>
 							{p.icon}
 						</div>
 					))}
-
 				</div>
 			</div>
 		</section>

@@ -65,41 +65,36 @@ export default async function ProductDetailPage({ params }: Props) {
 
 			<section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-0 lg:pt-4">
 				<div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
-						<ProductImage product={product} />
-						<div className="flex flex-col gap-4 items-start">
-							{product.categoryId.map((catId, idx) => (
-								<span
-									key={catId}
-									className="inline-block px-3 py-1 bg-slate-100 text-slate-900 text-xs font-semibold rounded-full"
-								>
-									{product.category.split(",")[idx]?.trim() || catId}
-								</span>
-							))}
+					<ProductImage product={product} />
+					<div className="flex flex-col gap-4 items-start">
+						{product.categoryId.map((catId, idx) => (
+							<span
+								key={catId}
+								className="inline-block px-3 py-1 bg-slate-100 text-slate-900 text-xs font-semibold rounded-full"
+							>
+								{product.category.split(",")[idx]?.trim() || catId}
+							</span>
+						))}
 
-							<h1 className="text-3xl md:text-4xl font-bold leading-tight text-blue-950">
-								{product.name}
-							</h1>
+						<h1 className="text-3xl md:text-4xl font-bold leading-tight text-blue-950">
+							{product.name}
+						</h1>
 
-							{product.price > 0 ? (
-								<p className="text-2xl font-bold text-slate-600">
-									₹{product.price.toLocaleString("en-IN")}.00
-								</p>
-							) : (
-								<p className="text-lg text-slate-900 italic">
-									Price on request
-								</p>
-							)}
-
-							<p className="text-slate-900 leading-relaxed">
-								{product.description}
+						{product.price > 0 ? (
+							<p className="text-2xl font-bold text-slate-600">
+								₹{product.price.toLocaleString("en-IN")}.00
 							</p>
+						) : (
+							<p className="text-lg text-slate-900 italic">Price on request</p>
+						)}
+
+						<p className="text-slate-900 leading-relaxed">
+							{product.description}
+						</p>
 						<ProductInteractions product={product} />
 						<Separator />
 						<TrustBadge />
-						</div>
-
-
-
+					</div>
 				</div>
 
 				{/* Specifications table */}
@@ -137,7 +132,7 @@ export default async function ProductDetailPage({ params }: Props) {
 						<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
 							{relatedProducts.map((p: ProductListItem) => (
 								<Link key={p.id} href={p.slug}>
-								<ProductCard key={p.id} product={p} />
+									<ProductCard key={p.id} product={p} />
 								</Link>
 							))}
 						</div>

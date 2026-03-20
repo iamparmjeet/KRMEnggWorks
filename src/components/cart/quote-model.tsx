@@ -80,7 +80,7 @@ export function QuoteModal({ product, onClose }: QuoteModalProps) {
 		try {
 			const subject = encodeURIComponent(`Quote Request: ${product.name}`);
 			const body = encodeURIComponent(
-				`Product: ${product.name}\nProduct Link: ${window.location.origin}/product/${product.slug}\n\nName: ${form.name}\nMobile: ${form.mobile}\n\nMessage:\n${form.message}`,
+				`Product: ${product.name}\nProduct Link: ${window.location.origin}/product/${product.slug}\n\nName: ${form.name}\nMobile: ${form.mobile}\n\nMessage:\n${form.message}`
 			);
 			window.location.href = `mailto:info@krmengineering.com?subject=${subject}&body=${body}`;
 			setStatus("success");
@@ -241,7 +241,7 @@ export function QuoteModal({ product, onClose }: QuoteModalProps) {
 											className={cn(
 												"w-full flex items-center justify-center gap-2 py-3 font-bold text-sm transition-colors",
 												"bg-yellow-400 hover:bg-yellow-500 text-[#0d1b2a]",
-												status === "sending" && "opacity-70 cursor-not-allowed",
+												status === "sending" && "opacity-70 cursor-not-allowed"
 											)}
 										>
 											{status === "sending" ? (

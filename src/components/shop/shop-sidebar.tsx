@@ -1,6 +1,10 @@
 "use client";
 
-import { IconChevronDown, IconChevronRight, IconFilter } from "@tabler/icons-react";
+import {
+	IconChevronDown,
+	IconChevronRight,
+	IconFilter,
+} from "@tabler/icons-react";
 import Link from "next/link";
 import { memo, useCallback, useMemo, useState } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
