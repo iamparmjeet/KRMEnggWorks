@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Cambo, Epilogue, Figtree, Geist } from "next/font/google";
+import { Cambo, Epilogue, Figtree, Geist, Inter } from "next/font/google";
 import "./globals.css";
 
 const cambo = Cambo({
@@ -30,8 +30,7 @@ import { Header } from "@/components/header";
 import { favicon } from "@/constants/data";
 import { cn } from "@/lib/utils";
 
-const geist = Geist({subsets:['latin'],variable:'--font-sans'});
-
+const inter = Inter({subsets:['latin'],variable:'--font-sans'});
 
 export default function RootLayout({
 	children,
@@ -39,7 +38,7 @@ export default function RootLayout({
 	children: React.ReactNode;
 }>) {
 	return (
-		<html lang="en" className={cn("font-sans", geist.variable)}>
+		<html lang="en" className={cn("font-sans", inter.variable)}>
 			<body className={`${cambo.variable} ${epilogue.variable} "antialiased"`}>
 				<Header />
 				<main>{children}</main>

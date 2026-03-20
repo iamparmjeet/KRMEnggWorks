@@ -8,6 +8,7 @@ import type { ProductListItem } from "@/constants/product-data";
 import { cn } from "@/lib/utils";
 import { useCartStore } from "@/store/cart-store";
 import { Button } from "../ui/button";
+import { Separator } from "../ui/separator";
 
 function formatPrice(price: number) {
 	if (price === 0) return null;
@@ -55,15 +56,16 @@ export default function ProductCard({ product }: ProductCardProps) {
 		<>
 			<div className="group bg-white border border-slate-200 hover:border-yellow-400 hover:shadow-lg transition-all duration-200 flex flex-col overflow-hidden">
 				{/* Image */}
-				<div className="relative h-48 bg-slate-50 overflow-hidden">
+				<div className="relative min-h-75 overflow-hidden">
 					<Image
 						src={product.image}
 						alt={product.name}
-						fill
-						className="object-contain p-4 group-hover:scale-105 transition-transform duration-300"
+						width={300}
+						height={300}
+						className="object-cover group-hover:scale-105 transition-transform duration-300"
 					/>
 				</div>
-
+				<Separator className={"bg-blue"} />
 				{/* Info */}
 				<div className="flex flex-col flex-1 p-4 gap-3">
 					<div>

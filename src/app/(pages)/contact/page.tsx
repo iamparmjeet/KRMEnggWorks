@@ -5,22 +5,16 @@ import Link from "next/link";
 import { useState } from "react";
 import {
 	type Control,
+	Controller,
 	type FieldPath,
 	type FieldValues,
 	useForm,
 } from "react-hook-form";
-
 import { z } from "zod";
+
 import PTB from "@/components/ptb";
 import { Button } from "@/components/ui/button";
-import {
-	Form,
-	FormControl,
-	FormField,
-	FormItem,
-	FormLabel,
-	FormMessage,
-} from "@/components/ui/form";
+import { Field, FieldError, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { ContactInfo as Info } from "@/constants/data";
@@ -30,7 +24,7 @@ const contactSchema = z.object({
 	mobile: z
 		.string()
 		.regex(/^[0-9\s\-+()]+$/, "Please enter a valid mobile number"),
-	email: z.email("Please enter a valid email address"),
+	email: z.string().email("Please enter a valid email address"),
 	message: z.string().min(10, "Message must be at least 10 characters"),
 });
 
@@ -41,7 +35,7 @@ export default function Contact() {
 		<div className="w-full bg-white">
 			<PTB
 				heading="Contact Us"
-				subheading="	Contact with the Top Industry Expert"
+				subheading="Contact with the Top Industry Expert"
 			/>
 			<section className="py-12 md:py-20 bg-white">
 				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -76,33 +70,40 @@ function ContactFormField<T extends FieldValues = ContactFormData>({
 	rows = 5,
 }: ContactFormFieldProps<T>) {
 	return (
-		<FormField
+		<Controller
 			control={control}
 			name={name}
-			render={({ field }) => (
-				<FormItem>
-					<FormLabel className="text-blue-800">
+			render={({ field, fieldState }) => (
+				<Field data-invalid={fieldState.invalid}>
+					<FieldLabel htmlFor={field.name} className="text-blue-800">
 						{label} <span className="text-red-600">*</span>
-					</FormLabel>
-					<FormControl>
-						{textarea ? (
-							<Textarea
-								placeholder={placeholder}
-								rows={rows}
-								className="resize-none rounded-none bg-gray-100"
-								{...field}
-							/>
-						) : (
-							<Input
-								type={type}
-								placeholder={placeholder}
-								{...field}
-								className="rounded-none bg-gray-100"
-							/>
-						)}
-					</FormControl>
-					<FormMessage className="text-red-600 text-xs" />
-				</FormItem>
+					</FieldLabel>
+					{textarea ? (
+						<Textarea
+							{...field}
+							id={field.name}
+							placeholder={placeholder}
+							rows={rows}
+							aria-invalid={fieldState.invalid}
+							className="resize-none rounded-none bg-gray-100"
+						/>
+					) : (
+						<Input
+							{...field}
+							id={field.name}
+							type={type}
+							placeholder={placeholder}
+							aria-invalid={fieldState.invalid}
+							className="rounded-none bg-gray-100"
+						/>
+					)}
+					{fieldState.invalid && (
+						<FieldError
+							errors={[fieldState.error]}
+							className="text-red-600 text-xs"
+						/>
+					)}
+				</Field>
 			)}
 		/>
 	);
@@ -168,49 +169,47 @@ function ContactForm() {
 				</p>
 			</div>
 
-			<Form {...form}>
-				<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-					<ContactFormField
-						control={form.control}
-						name="name"
-						label="Name"
-						placeholder="Name"
-					/>
+			<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+				<ContactFormField
+					control={form.control}
+					name="name"
+					label="Name"
+					placeholder="Name"
+				/>
 
-					<ContactFormField
-						control={form.control}
-						name="mobile"
-						label="Mobile"
-						placeholder="Your Mobile Number"
-						type="tel"
-					/>
+				<ContactFormField
+					control={form.control}
+					name="mobile"
+					label="Mobile"
+					placeholder="Your Mobile Number"
+					type="tel"
+				/>
 
-					<ContactFormField
-						control={form.control}
-						name="email"
-						label="Email"
-						placeholder="Email"
-						type="email"
-					/>
+				<ContactFormField
+					control={form.control}
+					name="email"
+					label="Email"
+					placeholder="Email"
+					type="email"
+				/>
 
-					<ContactFormField
-						control={form.control}
-						name="message"
-						label="Message"
-						placeholder="Message"
-						textarea
-						rows={5}
-					/>
+				<ContactFormField
+					control={form.control}
+					name="message"
+					label="Message"
+					placeholder="Message"
+					textarea
+					rows={5}
+				/>
 
-					<Button
-						type="submit"
-						disabled={form.formState.isSubmitting}
-						className="w-full h-12 bg-yellow hover:bg-primary text-primary hover:text-white font-bold py-2 transition-colors disabled:opacity-50"
-					>
-						{form.formState.isSubmitting ? "Sending..." : "Send"}
-					</Button>
-				</form>
-			</Form>
+				<Button
+					type="submit"
+					disabled={form.formState.isSubmitting}
+					className="w-full h-12 bg-yellow hover:bg-primary text-primary hover:text-white font-bold py-2 transition-colors disabled:opacity-50"
+				>
+					{form.formState.isSubmitting ? "Sending..." : "Send"}
+				</Button>
+			</form>
 		</div>
 	);
 }
@@ -250,7 +249,7 @@ function ContactInfo() {
 							key={item.id}
 							className="flex items-center gap-4 group cursor-pointer"
 						>
-							<IconComponent className="size-7 rounded-sm p-1.2 stroke-yellow group-hover:stroke-sky " />
+							<IconComponent className="size-7 rounded-sm p-1.2 stroke-yellow group-hover:stroke-sky" />
 							<Link
 								href={item.link}
 								target="_blank"
@@ -278,7 +277,7 @@ function MapSec() {
 					allowFullScreen
 					loading="lazy"
 					referrerPolicy="no-referrer-when-downgrade"
-				></iframe>
+				/>
 			</div>
 		</section>
 	);

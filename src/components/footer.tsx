@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { ContactInfo } from "@/constants";
-import { year } from "@/lib/utils";
+import { year } from "@/lib/date";
 import { Logo } from "./logo";
 import { SocialsBox } from "./socials";
 import { Button } from "./ui/button";
