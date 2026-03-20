@@ -3,7 +3,7 @@ import { media } from "./data";
 
 /**********************************/
 // Category Definition
-const CategoryDefinitions = {
+export const CategoryDefinitions = {
 	barBendingMachines: {
 		name: "Bar Bending Machine",
 		subcategories: [],
@@ -86,6 +86,7 @@ export const Category = Object.fromEntries(
 ) as { [K in keyof typeof CategoryDefinitions]: string };
 
 export type CategoryId = (typeof Category)[keyof typeof Category];
+export type CategoryKey = keyof typeof CategoryDefinitions;
 
 export type CategoryType = {
 	name: string;
