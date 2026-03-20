@@ -19,8 +19,8 @@
 - [x] Single Page
 	- [x] Related Product link
 - [x] Product category Page
-- [ ] Cart
+- [x] Cart
 - [ ] Privacy
-- [ ] 404
-- [ ] PopUp
+- [x] 404
+- [x] PopUp
 - [ ] Email Link with CF
