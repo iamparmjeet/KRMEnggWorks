@@ -12,13 +12,13 @@
 - [x] About
 - [x] Contact
 - [x] Product Archieve
-	- [ ] Filter
-	- [ ] Sorting
-	- [ ] Categories headline 
+	- [x] Filter
+	- [x] Sorting
+	- [x] Categories headline 
 	- [ ] Add to card button working
 - [x] Single Page
-	- [ ] Related Product link
-- [ ] Product category Page
+	- [x] Related Product link
+- [x] Product category Page
 - [ ] Cart
 - [ ] Privacy
 - [ ] 404
