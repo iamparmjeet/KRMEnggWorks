@@ -1,9 +1,9 @@
-import Image from "next/image";
 import {
 	IconChartAreaLine,
 	IconFileCertificate,
 	IconUsers,
-} from "tabler-icons";
+} from "@tabler/icons-react";
+import Image from "next/image";
 import PTB from "@/components/ptb";
 import { media } from "@/constants/data";
 
@@ -27,7 +27,7 @@ function ContentSec() {
 	return (
 		<section className="py-16 bg-white">
 			<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-				<p className="text-base font-semibold text-primary text-center">
+				<p className="text-base font-semibold text-blue-950 text-center">
 					Welcome to Our Company
 				</p>
 
@@ -44,7 +44,7 @@ function ContentSec() {
 					/>
 					{/* Right - Content */}
 					<div className="order-1 lg:order-2">
-						<h2 className="text-3xl md:text-4xl font-bold text-primary mb-6 leading-tight">
+						<h2 className="text-3xl md:text-4xl font-bold text-blue-950 mb-6 leading-tight">
 							KRM Engineering Works Provides a full range of services
 						</h2>
 						<AboutPoints />
@@ -108,33 +108,40 @@ function AboutPoints() {
 }
 
 function StatSec() {
+	const STATS = [
+		{
+			id: 1,
+			heading: "Total Number of Employees",
+			subheading: "11 to 25 People",
+			icon: <IconUsers />,
+		},
+		{
+			id: 2,
+			heading: "Year of Establishment",
+			subheading: "Serving since 2021",
+			icon: <IconChartAreaLine />,
+		},
+		{
+			id: 3,
+			heading: "GST No.",
+			subheading: "09CBCPA879G1ZS",
+			icon: <IconFileCertificate />
+		},
+	];
 	return (
 		<section className="pb-16 bg-white">
 			<div className="max-w-7xl mx-auto px-4">
 				<div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-					<div className="p-5 border border-accent rounded-none flex flex-col gap-5 justify-center">
-						<h2 className="text-primary font-semibold text-xl">
-							Total Number of Employees
-						</h2>
-						<p className="text-lg font-semibold text-black">11 to 25 People</p>
-						<IconUsers />
-					</div>
+					{STATS.map((p) => (
+						<div key={p.id} className="p-5 border border-blue-950 rounded-none flex flex-col gap-5 justify-center">
+							<h2 className="text-blue-950 font-semibold text-xl">
+								{p.heading}
+							</h2>
+							<p className="text-lg font-semibold text-black">{p.subheading }</p>
+							{p.icon}
+						</div>
+					))}
 
-					<div className="p-5 border border-accent rounded-none flex flex-col gap-5 justify-center">
-						<h2 className="text-primary font-semibold text-xl">
-							Year of Establishment
-						</h2>
-						<p className="text-lg font-semibold text-black">
-							Serving since 2021
-						</p>
-						<IconChartAreaLine />
-					</div>
-
-					<div className="p-5 border border-accent rounded-none flex flex-col gap-5 justify-center">
-						<h2 className="text-primary font-semibold text-xl">GST No.</h2>
-						<p className="text-lg font-semibold text-black">09CBCPA879G1ZS</p>
-						<IconFileCertificate />
-					</div>
 				</div>
 			</div>
 		</section>

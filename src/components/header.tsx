@@ -1,12 +1,13 @@
 "use client";
 
+import { IconCaretDown, IconMenu, IconShoppingCart, IconX } from "@tabler/icons-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import { IconCaretDown, IconMenu, IconShoppingCart, IconX } from "tabler-icons";
 import { Button } from "@/components/ui/button";
 import { categories } from "@/constants";
 import { cn } from "@/lib/utils";
+import { useCartStore } from "@/store/cart-store";
 import { Logo } from "./logo";
 
 type NavItem = {
@@ -36,7 +37,7 @@ export function Header() {
 	];
 
 	return (
-		<header className="sticky top-0 z-50 w-full bg-blue backdrop-blur min-h-28">
+		<header className="sticky top-0 z-50 w-full bg-slate-950 backdrop-blur min-h-28">
 			<div className="flex justify-between items-center max-w-7xl mx-auto py-4">
 				<Logo />
 
@@ -69,14 +70,14 @@ function DesktopNav({ navItems }: DesktopNavProps) {
 				return (
 					<div
 						key={item.href}
-						className="relative min-w-22 group last:after:hidden after:content-[''] after:absolute after:right-0 after:top-1/2 after:-translate-y-1/2 after:h-4 after:w-0.5 after:bg-sky"
+						className="relative min-w-22 group last:after:hidden after:content-[''] after:absolute after:right-0 after:top-1/2 after:-translate-y-1/2 after:h-4 after:w-0.5 after:bg-sky-400"
 					>
 						<Link
 							href={item.href}
 							className={cn(
 								"text-lg font-semibold font-cambo transition-colors flex items-center gap-2 px-3 py-3",
 								isActive
-									? "text-yellow border-b-2"
+									? "text-yellow border-b-2 border-yellow"
 									: "text-white hover:text-yellow"
 							)}
 						>
@@ -94,7 +95,7 @@ function DesktopNav({ navItems }: DesktopNavProps) {
 									<Link
 										key={c.id}
 										href={`/product-category/${c.id}`}
-										className="block px-5 py-3.5 text-base font-medium text-primary hover:text-white hover:bg-primary"
+										className="block px-5 py-3.5 text-base font-medium text-blue-950 hover:text-white hover:bg-blue-950"
 									>
 										{c.name}
 									</Link>
@@ -126,8 +127,8 @@ function MobileNav({ navItems, isOpen, onClose }: MobileNavProps) {
 							className={cn(
 								"block px-4 py-2 text-lg font-medium transition-colors",
 								isActive
-									? "text-white bg-primary"
-									: "text-primary hover:text-yellow-400 hover:bg-slate-800"
+									? "text-white bg-blue-950"
+									: "text-blue-950 hover:text-yellow hover:bg-slate-950"
 							)}
 						>
 							{item.label}
@@ -150,7 +151,7 @@ function MobileMenuButton({ isOpen, onToggle }: MobileMenuButtonProps) {
 		<Button
 			variant="link"
 			onClick={onToggle}
-			className="md:hidden text-sky hover:text-white transition-colors bg-none"
+			className="md:hidden text-sky-400 hover:text-white transition-colors bg-none"
 		>
 			{isOpen ? <IconX className="size-8" /> : <IconMenu className="size-8" />}
 		</Button>
@@ -158,20 +159,22 @@ function MobileMenuButton({ isOpen, onToggle }: MobileMenuButtonProps) {
 }
 
 function CartBox() {
+	const {totalItems} = useCartStore()
 	return (
 		<div className="hidden md:flex gap-4">
 			<Link href="/cart">
 				<Button
 					variant="default"
 					size="icon"
-					className="h-15 w-14 p-4 bg-yellow hover:bg-white border-2 hover:border-yellow cursor-pointer"
+					className="h-15 w-14 p-4 bg-yellow hover:bg-white border-2 hover:border-yellow cursor-pointer text-blue-950 relative"
 				>
 					<IconShoppingCart className="size-6" />
+					<span className={`absolute -bottom-3 -right-2 size-7 rounded-full ${totalItems() > 0 ? "flex" : "hidden"} items-center justify-center bg-white`}>{totalItems() >= 1 ? totalItems() : ""}</span>
 				</Button>
 			</Link>
 
 			<Link href="/contact">
-				<Button className="h-15 bg-yellow hover:bg-black hover:text-white border-2 hover:border-yellow text-lg font-semibold py-4 px-6 cursor-pointer">
+				<Button className="h-15 bg-yellow hover:bg-black text-blue-950 hover:text-white border-2 hover:border-yellow text-lg font-semibold py-4 px-6 cursor-pointer">
 					Get a Quote
 				</Button>
 			</Link>

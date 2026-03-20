@@ -8,7 +8,7 @@ import {
 	IconPhone,
 	IconShoppingCart,
 	type TablerIcon,
-} from "tabler-icons";
+} from "@tabler/icons-react";
 
 export const media = "https://media.krmenggworks.com/assets";
 export const favicon = `${media}/06/cropped-KRM-Favicon.jpg`;

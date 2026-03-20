@@ -1,6 +1,6 @@
 "use client";
 
-import { Filter } from "lucide-react";
+import { IconFilter } from "@tabler/icons-react";
 import { useMemo, useState } from "react";
 import PTB from "@/components/ptb";
 import { ProductGrid } from "@/components/shop/product-grid";
@@ -62,10 +62,10 @@ export function ShopLayout({
 					variant="outline"
 					className="lg:hidden flex items-center gap-2 border-black h-13 px-3 shrink-0"
 				>
-					<Filter className="h-4 w-4" />
+					<IconFilter className="h-4 w-4" />
 					<span className="hidden sm:inline">Filters</span>
 					{activeFiltersCount > 0 && (
-						<span className="flex h-5 w-5 items-center justify-center rounded-full bg-yellow text-blue text-xs font-bold">
+						<span className="flex h-5 w-5 items-center justify-center rounded-full bg-yellow text-blue-950 text-xs font-bold">
 							{activeFiltersCount}
 						</span>
 					)}
@@ -74,7 +74,7 @@ export function ShopLayout({
 			<SheetContent side="left" className="w-80 p-0 overflow-y-auto">
 				<SheetHeader className="px-4 py-3 border-b">
 					<SheetTitle className="flex items-center gap-2 text-base">
-						<Filter className="h-4 w-4 text-muted-foreground" />
+						<IconFilter className="h-4 w-4 text-blue-950" />
 						Filter by Category
 					</SheetTitle>
 				</SheetHeader>

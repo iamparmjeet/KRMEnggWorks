@@ -1,10 +1,10 @@
-import Image from "next/image";
-import Link from "next/link";
 import {
 	IconArrowRight,
 	IconArrowUpRight,
 	IconChevronsRight,
-} from "tabler-icons";
+} from "@tabler/icons-react";
+import Image from "next/image";
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import {
 	Carousel,
@@ -13,6 +13,7 @@ import {
 	CarouselNext,
 	CarouselPrevious,
 } from "@/components/ui/carousel";
+import { Separator } from "@/components/ui/separator";
 import { media, productCardBg } from "@/constants/data";
 
 export default function Home() {
@@ -60,8 +61,8 @@ function HeroSec() {
 						<p className="text-lg text-white">
 							Trusted solution for all your machinery needs
 						</p>
-						<Link href="/contact">
-							<Button className="bg-yellow hover:bg-transparent text-blue font-bold px-6 py-3 min-h-14 text-xl font-cambo border border-yellow hover:text-white">
+						<Link href="/shop">
+							<Button className="bg-yellow hover:bg-transparent text-blue-950 font-bold px-6 py-3 min-h-14 text-xl font-cambo border border-yellow hover:text-white cursor-pointer ">
 								Go To Shop
 								<IconChevronsRight />
 							</Button>
@@ -112,7 +113,7 @@ function HeroSec() {
 // Second Second
 function DifferentSection() {
 	return (
-		<section className="py-16 md:py-24 bg-white">
+		<section className="pt-16">
 			<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 				{/*Heading*/}
 				<div className="text-center mb-12">
@@ -124,10 +125,10 @@ function DifferentSection() {
 							alt="Wheel"
 						/>
 					</div>
-					<h3 className="text-xl font-semibold text-accent mb-2">
+					<h3 className="text-xl font-semibold text-slate-800 mb-2">
 						Focused And Future Ready
 					</h3>
-					<h2 className="text-3xl md:w-3xl  mx-auto md:text-4xl font-bold text-center text-primary mb-2">
+					<h2 className="text-3xl md:w-3xl  mx-auto md:text-4xl font-bold text-center text-blue-950 mb-2">
 						Right People to Deliver Unique Construction Solutions
 					</h2>
 				</div>
@@ -162,7 +163,7 @@ function DifferentSection() {
 						</p>
 
 						<Link href="/about">
-							<Button className="bg-yellow hover:bg-primary text-blue font-bold px-6 py-3 min-h-14 text-xl font-cambo border-2 border-primary hover:text-white">
+							<Button className="bg-yellow hover:bg-blue-950 cursor-pointer text-blue-950 font-bold px-6 py-3 min-h-14 text-xl font-cambo border-2 border-black hover:text-white">
 								Read more
 								<IconChevronsRight />
 							</Button>
@@ -230,7 +231,7 @@ function ProvideSection() {
 		},
 	];
 	return (
-		<section className="py-16 md:py-24 bg-white">
+		<section className="py-16 bg-white">
 			<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 				{/*Heading*/}
 				<div className="text-center mb-12">
@@ -242,10 +243,10 @@ function ProvideSection() {
 							alt="Wheel"
 						/>
 					</div>
-					<h3 className="text-2xl font-semibold text-accent mb-2">
+					<h3 className="text-2xl font-semibold text-slate-900 mb-2">
 						What We Provide
 					</h3>
-					<h2 className="text-3xl md:w-3xl  mx-auto md:text-4xl font-bold text-center text-primary mb-2">
+					<h2 className="text-3xl md:w-3xl  mx-auto md:text-4xl font-bold text-center text-blue-950 mb-2">
 						Exclusive Products Range
 					</h2>
 				</div>
@@ -253,7 +254,7 @@ function ProvideSection() {
 				<div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
 					{allProducts.map((product) => (
 						<Link key={product.id} href={product.link}>
-							<div className="relative group border border-black rounded-none overflow-hidden h-full px-8 py-10  hover:bg-yellow transition-colors">
+							<div className="relative group border border-black rounded-none overflow-hidden h-full px-8 py-10  hover:bg-yellow transition-colors shadow">
 								<Image
 									src={productCardBg}
 									width={80}
@@ -261,7 +262,7 @@ function ProvideSection() {
 									alt="bg-image"
 									className="hidden absolute group-hover:flex right-0 top-40 z-0 pointer-events-none transition-all"
 								/>
-								<h4 className="text-2xl font-semibold text-primary mb-4">
+								<h4 className="text-2xl font-semibold text-blue-950 mb-4">
 									{product.name}
 								</h4>
 								<Image
@@ -271,10 +272,10 @@ function ProvideSection() {
 									alt={product.name}
 									className="z-10 overflow-hidden relative"
 								/>
-								<p className="text-accent text-lg font-medium my-5">
+								<p className="text-slate-900 text-lg font-medium my-5">
 									{product.description}
 								</p>
-								<IconArrowUpRight className="bg-accent size-11 text-white rounded-md" />
+								<IconArrowUpRight className="bg-blue-950 size-11 text-white rounded-md" />
 							</div>
 						</Link>
 					))}
@@ -283,11 +284,11 @@ function ProvideSection() {
 				<Link href="/products">
 					<button
 						type="button"
-						className="flex items-center text-primary font-cambo text-2xl font-semibold no-underline mx-auto cursor-pointer"
+						className="flex items-center text-blue-950 font-cambo text-2xl font-semibold no-underline mx-auto cursor-pointer"
 					>
 						View All Products{" "}
 						<span className="flex items-center justify-center ml-2">
-							<IconChevronsRight className="bg-yellow rounded-full size-9" />
+							<IconChevronsRight className="bg-yellow rounded-full size-6" />
 						</span>
 					</button>
 				</Link>
@@ -343,7 +344,7 @@ function BestSellingSec() {
 		},
 	];
 	return (
-		<section className="py-16 md:py-24 bg-slate-950 text-white">
+		<section className="py-16 bg-slate-950 text-white">
 			<h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
 				Our Best Selling Products
 			</h2>
@@ -358,18 +359,19 @@ function BestSellingSec() {
 					<CarouselContent>
 						{sellingProducts.map((product) => (
 							<CarouselItem key={product.id} className="basis-1/2 lg:basis-1/3">
-								<div className="bg-white text-primary">
+								<div className="bg-white text-blue-950 w-full">
 									<Image
 										src={product.image}
 										alt={product.name}
-										width={215}
-										height={215}
+										width={200}
+										height={200}
+										className="bg-center w-xl"
 									/>
-									<hr />
-									<div className="p-8 space-y-4">
-										<h3 className="text-xl font-semibold">{product.name}</h3>
+									<Separator  />
+									<div className="p-6 space-y-4">
+										<h3 className="text-xl font-semibold text-blue-950">{product.name}</h3>
 										<Link href={product.link}>
-											<Button className="bg-yellow hover:bg-primary hover:text-white">
+											<Button className="bg-yellow text-blue-950 hover:bg-blue-950 hover:text-white">
 												Read more
 												<IconChevronsRight />
 											</Button>
@@ -379,14 +381,14 @@ function BestSellingSec() {
 							</CarouselItem>
 						))}
 					</CarouselContent>
-					<CarouselPrevious />
-					<CarouselNext />
+					<CarouselPrevious className="bg-blue-950 cursor-pointer" />
+					<CarouselNext className="bg-blue-950 cursor-pointer" />
 				</Carousel>
 			</div>
 
 			<div className="text-center mt-14">
 				<Link href="/products">
-					<Button className="bg-yellow text-primary text-lg font-bold py-7 px-8">
+					<Button className="bg-yellow text-blue-950 text-lg font-bold py-7 px-8 cursor-pointer hover:bg-blue-900 hover:text-white">
 						View more <IconArrowRight className="ml-2 w-4 h-4" />
 					</Button>
 				</Link>
@@ -401,13 +403,13 @@ function CTASec() {
 		<section className="py-16 md:py-24 bg-white">
 			<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 				<div className="text-center mb-12">
-					<p className="text-sm font-semibold text-accent uppercase tracking-wide mb-2">
+					<p className="text-base font-semibold text-slate-900 uppercase tracking-wide mb-2">
 						Contact Us
 					</p>
-					<h2 className="text-3xl md:text-4xl font-bold text-primary mb-2">
+					<h2 className="text-3xl md:text-4xl font-bold text-blue-950 mb-2">
 						Get In Touch With Us.
 					</h2>
-					<h2 className="text-3xl md:text-4xl font-bold text-primary mb-2">
+					<h2 className="text-3xl md:text-4xl font-bold text-blue-950 mb-2">
 						We are Happy To Help.
 					</h2>
 				</div>
@@ -422,19 +424,19 @@ function CTASec() {
 						preload
 					/>
 					{/*right*/}
-					<div className="max-w-md mx-auto border border-primary rounded-none p-8 space-y-6">
-						<h3 className="text-3xl font-bold text-primary mb-4">
+					<div className="max-w-md mx-auto border border-blue-950 rounded-none p-8 space-y-6">
+						<h3 className="text-3xl font-bold text-blue-900 mb-4">
 							Customer Satisfaction
 						</h3>
-						<p className="text-accent text-base font-medium leading-relaxed">
+						<p className="text-slate-900 text-base font-medium leading-relaxed">
 							Happy customers are a valuable asset for us and we understand the
 							importance of timely delivery and quality of equipment.
 						</p>
 						<div className="space-y-4">
-							<Button className="w-full bg-yellow-400 hover:bg-yellow-500 text-slate-900 font-bold">
+							<Button className="w-full cursor-pointer h-16 text-xl font-cambo bg-yellow-400 hover:bg-yellow-500 text-slate-900 font-bold">
 								Call Us +91 8604D 07664
 							</Button>
-							<Button className="w-full bg-yellow-400 hover:bg-yellow-500 text-slate-900 font-bold">
+							<Button className="w-full h-16 text-xl cursor-pointer  font-cambo bg-yellow-400 hover:bg-yellow-500 text-slate-900 font-bold">
 								Contact Us
 							</Button>
 						</div>

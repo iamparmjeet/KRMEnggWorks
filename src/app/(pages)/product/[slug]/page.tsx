@@ -1,10 +1,11 @@
+import { IconBox, IconChartLine, IconShieldCheck } from "@tabler/icons-react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { IconBox, IconChartLine, IconShieldCheck } from "tabler-icons";
 import ProductCard from "@/components/shop/product-card";
 import { Separator } from "@/components/ui/separator";
 import { type ProductListItem, products } from "@/constants";
 import { getProductBySlug, getRelatedProducts } from "@/lib/product-utils";
+import { ProductImage } from "./product-image";
 import { ProductInteractions } from "./product-interactions";
 
 // ─── Static generation ───────────────────────────────────
@@ -63,55 +64,47 @@ export default async function ProductDetailPage({ params }: Props) {
 			</div>
 
 			<section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-0 lg:pt-4">
-				<div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-					{/*
-					 * ProductInteractions is a Client Component.
-					 * It handles: image zoom, thumbnail selection,
-					 * quantity picker, Add to Cart, Get Quote modal.
-					 * We pass the product data as a plain prop (serializable).
-					 */}
-					<ProductInteractions product={product} />
-
-					{/* Right column — pure static HTML */}
-					<div className="space-y-6">
+				<div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
+						<ProductImage product={product} />
 						<div className="flex flex-col gap-4 items-start">
 							{product.categoryId.map((catId, idx) => (
 								<span
 									key={catId}
-									className="inline-block px-3 py-1 bg-blue-50 text-primary text-xs font-semibold rounded-full"
+									className="inline-block px-3 py-1 bg-slate-100 text-slate-900 text-xs font-semibold rounded-full"
 								>
 									{product.category.split(",")[idx]?.trim() || catId}
 								</span>
 							))}
 
-							<h1 className="text-3xl md:text-4xl font-bold text-black leading-tight">
+							<h1 className="text-3xl md:text-4xl font-bold leading-tight text-blue-950">
 								{product.name}
 							</h1>
 
 							{product.price > 0 ? (
-								<p className="text-2xl font-bold text-primary">
+								<p className="text-2xl font-bold text-slate-600">
 									₹{product.price.toLocaleString("en-IN")}.00
 								</p>
 							) : (
-								<p className="text-lg text-slate-500 italic">
+								<p className="text-lg text-slate-900 italic">
 									Price on request
 								</p>
 							)}
 
-							<p className="text-accent leading-relaxed">
+							<p className="text-slate-900 leading-relaxed">
 								{product.description}
 							</p>
+						<ProductInteractions product={product} />
+						<Separator />
+						<TrustBadge />
 						</div>
 
-						<div className="h-px bg-slate-200" />
 
-						<TrustBadge />
-					</div>
+
 				</div>
 
 				{/* Specifications table */}
 				<div className="mt-16">
-					<h2 className="text-3xl font-bold text-primary mb-10 pb-2 border-b-2 border-yellow w-fit">
+					<h2 className="text-3xl font-bold text-blue-950 mb-10 pb-2 border-b-2 w-fit">
 						Technical Specifications
 					</h2>
 					<div className="bg-slate-50 p-6 md:p-8">
@@ -124,8 +117,8 @@ export default async function ProductDetailPage({ params }: Props) {
 											idx !== arr.length - 1 ? "border-b border-slate-200" : ""
 										}`}
 									>
-										<span className="font-semibold text-primary">{key}</span>
-										<span className="text-accent text-right">{value}</span>
+										<span className="font-semibold text-blue-950">{key}</span>
+										<span className="text-slate-900 text-right">{value}</span>
 									</div>
 								)
 							)}
@@ -133,22 +126,19 @@ export default async function ProductDetailPage({ params }: Props) {
 					</div>
 				</div>
 
-				<Separator className="bg-accent my-8 md:my-16" />
+				<Separator className="bg-blue-950 my-8 md:my-16" />
 
 				{/* Related Products */}
 				{relatedProducts.length > 0 && (
 					<div className="mb-18">
-						<h2 className="text-3xl font-bold text-primary mb-8">
+						<h2 className="text-3xl font-bold text-blue-950 mb-8">
 							Related Products
 						</h2>
 						<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
 							{relatedProducts.map((p: ProductListItem) => (
-								/*
-								 * ProductCard is a Client Component (uses useCartStore).
-								 * Next.js automatically creates the server→client boundary here.
-								 * The page stays static; only ProductCard hydrates on the client.
-								 */
+								<Link key={p.id} href={p.slug}>
 								<ProductCard key={p.id} product={p} />
+								</Link>
 							))}
 						</div>
 					</div>
@@ -158,11 +148,11 @@ export default async function ProductDetailPage({ params }: Props) {
 	);
 }
 
-// ─── Static sub-components (no interactivity needed) ─────────────────────────
+// ─── Static sub-components
 
 function TrustBadge() {
 	return (
-		<div className="flex flex-col gap-4 text-primary text-sm font-medium pt-4">
+		<div className="flex flex-col gap-4 text-blue-950 text-sm font-medium pt-4">
 			<span className="flex items-center gap-1">
 				<IconChartLine /> In Stock
 			</span>

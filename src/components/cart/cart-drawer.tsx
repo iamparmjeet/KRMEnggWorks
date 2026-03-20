@@ -1,6 +1,7 @@
 "use client";
+;
 
-import { Minus, Plus, ShoppingCart, Trash2, X } from "lucide-react";
+import { IconMinus, IconPlus, IconShoppingCart, IconTrash, IconX } from "@tabler/icons-react";
 import Image from "next/image";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
@@ -48,7 +49,7 @@ export function CartDrawer() {
 				{/* Header */}
 				<div className="flex items-center justify-between px-5 py-4 bg-[#0d1b2a] text-white">
 					<div className="flex items-center gap-3">
-						<ShoppingCart className="h-5 w-5 text-yellow-400" />
+						<IconShoppingCart className="h-5 w-5 text-yellow-400" />
 						<h2 className="font-bold text-lg tracking-wide">
 							Your Cart
 							{totalItems() > 0 && (
@@ -63,7 +64,7 @@ export function CartDrawer() {
 						className="p-1.5 hover:bg-white/10 rounded transition-colors"
 						aria-label="Close cart"
 					>
-						<X className="h-5 w-5" />
+						<IconX className="h-5 w-5" />
 					</Button>
 				</div>
 
@@ -71,7 +72,7 @@ export function CartDrawer() {
 				<div className="flex-1 overflow-y-auto px-5 py-4 space-y-4">
 					{items.length === 0 ? (
 						<div className="flex flex-col items-center justify-center h-full gap-4 text-slate-400">
-							<ShoppingCart className="h-16 w-16 opacity-20" />
+							<IconShoppingCart className="h-16 w-16 opacity-20" />
 							<p className="text-lg font-medium">Your cart is empty</p>
 							<Button
 								onClick={closeCart}
@@ -119,7 +120,7 @@ export function CartDrawer() {
 												className="px-2 py-1 hover:bg-slate-200 transition-colors"
 												aria-label="Decrease quantity"
 											>
-												<Minus className="h-3 w-3" />
+												<IconMinus className="h-3 w-3" />
 											</Button>
 											<span className="px-3 py-1 text-sm font-medium bg-white border-x border-slate-300">
 												{item.quantity}
@@ -131,7 +132,7 @@ export function CartDrawer() {
 												className="px-2 py-1 hover:bg-slate-200 transition-colors"
 												aria-label="Increase quantity"
 											>
-												<Plus className="h-3 w-3" />
+												<IconPlus className="h-3 w-3" />
 											</Button>
 										</div>
 										<Button
@@ -139,7 +140,7 @@ export function CartDrawer() {
 											className="p-1.5 text-slate-400 hover:text-red-500 transition-colors"
 											aria-label="Remove item"
 										>
-											<Trash2 className="h-4 w-4" />
+											<IconTrash className="h-4 w-4" />
 										</Button>
 									</div>
 								</div>

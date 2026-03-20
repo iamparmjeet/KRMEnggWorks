@@ -11,15 +11,15 @@ const colorSchemes = {
 		bg: "bg-yellow",
 		hoverBg: "group-hover:bg-yellow",
 		stroke: "stroke-yellow",
-		hoverStroke: "group-hover:stroke-accent",
-		accent: "bg-accent",
+		hoverStroke: "group-hover:stroke-blue-950",
+		accent: "bg-blue-950",
 	},
 	blue: {
 		bg: "bg-blue-500",
 		hoverBg: "group-hover:bg-yellow",
 		stroke: "stroke-white",
-		hoverStroke: "group-hover:stroke-primary",
-		accent: "bg-primary",
+		hoverStroke: "group-hover:stroke-blue-950",
+		accent: "bg-blue-950",
 	},
 };
 

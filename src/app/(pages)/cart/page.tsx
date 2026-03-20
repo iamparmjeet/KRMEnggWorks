@@ -1,14 +1,6 @@
 "use client";
 
-import {
-	ArrowLeft,
-	CheckCircle,
-	Minus,
-	Plus,
-	Send,
-	ShoppingCart,
-	Trash2,
-} from "lucide-react";
+import { IconArrowLeft, IconCheck, IconMinus, IconPlus, IconSend, IconShoppingCart, IconTrash } from "@tabler/icons-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
@@ -95,8 +87,8 @@ export default function CartPage() {
 			<div className="w-full bg-white min-h-screen">
 				<PTB heading="Your Cart" subheading="Review your selected products" />
 				<div className="max-w-2xl mx-auto px-4 py-20 text-center">
-					<ShoppingCart className="h-20 w-20 text-slate-200 mx-auto mb-6" />
-					<h2 className="text-2xl font-bold text-[#0d1b2a] mb-2">
+					<IconShoppingCart className="h-20 w-20 text-slate-200 mx-auto mb-6" />
+					<h2 className="text-2xl font-bold text-blue-950 mb-2">
 						Your cart is empty
 					</h2>
 					<p className="text-slate-500 mb-8">
@@ -104,9 +96,9 @@ export default function CartPage() {
 					</p>
 					<Link
 						href="/shop"
-						className="inline-flex items-center gap-2 bg-yellow-400 hover:bg-yellow-500 text-[#0d1b2a] font-bold px-8 py-3 transition-colors"
+						className="inline-flex items-center gap-2 bg-yellow-400 hover:bg-yellow-500 text-blue-950 font-bold px-8 py-3 transition-colors"
 					>
-						<ArrowLeft className="h-4 w-4" />
+						<IconArrowLeft className="h-4 w-4" />
 						Browse Products
 					</Link>
 				</div>
@@ -119,7 +111,7 @@ export default function CartPage() {
 			<div className="w-full bg-white min-h-screen">
 				<PTB heading="Enquiry Sent!" subheading="We'll be in touch shortly" />
 				<div className="max-w-2xl mx-auto px-4 py-20 text-center">
-					<CheckCircle className="h-20 w-20 text-green-500 mx-auto mb-6" />
+					<IconCheck className="h-20 w-20 text-green-500 mx-auto mb-6" />
 					<h2 className="text-2xl font-bold text-[#0d1b2a] mb-2">
 						Thank you, {form.name}!
 					</h2>
@@ -135,7 +127,7 @@ export default function CartPage() {
 								clearCart();
 								setStatus("idle");
 							}}
-							className="border border-[#0d1b2a] text-[#0d1b2a] font-medium px-6 py-2.5 hover:bg-slate-50 transition-colors text-sm"
+							className="border border-blue-950 text-blue-950 font-medium px-6 py-2.5 hover:bg-slate-50 transition-colors text-sm"
 						>
 							Clear Cart
 						</Button>
@@ -164,13 +156,13 @@ export default function CartPage() {
 						{/* ── Cart Items ── */}
 						<div className="lg:col-span-2 space-y-4">
 							<div className="flex items-center justify-between mb-2">
-								<h2 className="text-lg font-bold text-[#0d1b2a]">
+								<h2 className="text-lg font-bold text-blue-950">
 									{totalItems()} {totalItems() === 1 ? "Product" : "Products"}{" "}
 									Selected
 								</h2>
 								<Button
 									onClick={clearCart}
-									className="text-xs text-slate-400 hover:text-red-500 underline transition-colors"
+									className="text-xs text-slate-900 hover:text-red-500 underline transition-colors"
 								>
 									Clear all
 								</Button>
@@ -187,7 +179,7 @@ export default function CartPage() {
 											src={item.image}
 											alt={item.name}
 											fill
-											className="object-contain p-2"
+											className="object-contain"
 										/>
 									</div>
 
@@ -195,7 +187,7 @@ export default function CartPage() {
 									<div className="flex-1 min-w-0">
 										<Link
 											href={`/product/${item.slug}`}
-											className="text-sm font-bold text-[#0d1b2a] hover:text-yellow-600 transition-colors line-clamp-2"
+											className="text-sm font-bold text-blue-950 hover:text-yellow-600 transition-colors line-clamp-2"
 										>
 											{item.name}
 										</Link>
@@ -212,7 +204,7 @@ export default function CartPage() {
 													}
 													className="px-3 py-1.5 hover:bg-slate-200 transition-colors"
 												>
-													<Minus className="h-3 w-3" />
+													<IconMinus className="h-3 w-3" />
 												</Button>
 												<span className="px-4 py-1.5 text-sm font-medium bg-white border-x border-slate-300">
 													{item.quantity}
@@ -223,7 +215,7 @@ export default function CartPage() {
 													}
 													className="px-3 py-1.5 hover:bg-slate-200 transition-colors"
 												>
-													<Plus className="h-3 w-3" />
+													<IconPlus className="h-3 w-3" />
 												</Button>
 											</div>
 
@@ -239,9 +231,9 @@ export default function CartPage() {
 												)}
 												<Button
 													onClick={() => removeItem(item.id)}
-													className="p-1.5 text-slate-300 hover:text-red-500 transition-colors"
+													className="p-1.5 text-blue-950 hover:text-red-500 transition-colors"
 												>
-													<Trash2 className="h-4 w-4" />
+													<IconTrash className="h-4 w-4" />
 												</Button>
 											</div>
 										</div>
@@ -254,7 +246,7 @@ export default function CartPage() {
 								href="/shop"
 								className="inline-flex items-center gap-2 text-sm text-slate-500 hover:text-[#0d1b2a] transition-colors mt-2"
 							>
-								<ArrowLeft className="h-4 w-4" />
+								<IconArrowLeft className="h-4 w-4" />
 								Continue Shopping
 							</Link>
 						</div>
@@ -390,27 +382,27 @@ export default function CartPage() {
 										</p>
 									)}
 
-									<button
+									<Button
 										type="submit"
 										disabled={status === "sending"}
 										className={cn(
-											"w-full flex items-center justify-center gap-2 py-3 font-bold text-sm transition-colors",
+											"w-full h-14 flex items-center justify-center gap-2 py-3 font-bold text-sm transition-colors",
 											"bg-yellow-400 hover:bg-yellow-500 text-[#0d1b2a]",
 											status === "sending" && "opacity-70 cursor-not-allowed"
 										)}
 									>
 										{status === "sending" ? (
 											<>
-												<span className="animate-spin h-4 w-4 border-2 border-[#0d1b2a] border-t-transparent rounded-full" />
+												<span className="animate-spin h-4 w-4 border-2 border-blue-950 border-t-transparent rounded-full" />
 												Sending...
 											</>
 										) : (
 											<>
-												<Send className="h-4 w-4" />
+												<IconSend className="h-4 w-4" />
 												Send Enquiry to KRM
 											</>
 										)}
-									</button>
+									</Button>
 								</form>
 							</div>
 						</div>

@@ -59,11 +59,11 @@ function ContactSec() {
 							key={item.id}
 							className="flex items-center gap-4 group cursor-pointer"
 						>
-							<IconComponent className="size-5 rounded-sm p-1.2 stroke-yellow group-hover:stroke-sky " />
+							<IconComponent className="size-5 rounded-sm p-1.2 stroke-yellow group-hover:stroke-sky-400 " />
 							<Link
 								href={item.link}
 								target="_blank"
-								className="text-gray-300 transition-colors group-hover:text-sky"
+								className="text-gray-300 transition-colors group-hover:text-sky-400"
 							>
 								{item.label}
 							</Link>
@@ -86,14 +86,14 @@ function NewsletterSec() {
 				<Input
 					type="text"
 					placeholder="Name"
-					className="w-full min-h-12 px-3 py-2 bg-accent rounded-none border border-yellow text-white placeholder-gray-300"
+					className="w-full min-h-12 px-3 py-2 rounded-none border border-yellow text-white placeholder-gray-300"
 				/>
 				<Input
 					type="email"
 					placeholder="Email"
-					className="w-full min-h-12 px-3 py-2 bg-accent rounded-none border border-yellow text-white placeholder-gray-300"
+					className="w-full min-h-12 px-3 py-2 rounded-none border border-yellow text-white placeholder-gray-200"
 				/>
-				<Button className="w-full h-10 font-cambo bg-yellow-400 hover:bg-primary text-slate-900 hover:text-white font-bold py-2 text-xl">
+				<Button className="w-full h-10 font-cambo bg-yellow-400 hover:bg-blue-950 text-slate-900 hover:text-white font-bold py-2 text-xl">
 					Subscribe
 				</Button>
 			</div>

@@ -1,6 +1,6 @@
 "use client";
 
-import { ChevronDown, ChevronRight, Filter } from "lucide-react";
+import { IconChevronDown, IconChevronRight, IconFilter } from "@tabler/icons-react";
 import Link from "next/link";
 import { memo, useCallback, useMemo, useState } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -78,12 +78,12 @@ const SubcategoryItem = memo(function SubcategoryItem({
 				onClick={onNavigate}
 				className={cn(
 					"flex items-center py-1.5 px-3 text-sm transition-colors rounded-md",
-					"hover:bg-yellow hover:text-accent-foreground",
-					isActive && "bg-yellow text-accent-foreground font-medium"
+					"hover:bg-yellow hover:text-blue-950",
+					isActive && "bg-yellow text-blue-950 font-medium"
 				)}
 				aria-current={isActive ? "page" : undefined}
 			>
-				<ChevronRight className="mr-2 h-3 w-3 opacity-50 shrink-0" />
+				<IconChevronRight className="mr-2 h-3 w-3 opacity-50 shrink-0" />
 				<span className="truncate">{subcategory}</span>
 			</Link>
 		</li>
@@ -118,14 +118,14 @@ const CategorySection = memo(function CategorySection({
 					onClick={onToggle}
 					className={cn(
 						"w-full flex items-center justify-between py-2.5 px-3 text-sm font-medium transition-colors text-left",
-						"hover:bg-yellow cursor-pointer hover:text-accent-foreground",
-						isActive && "bg-yellow text-accent-foreground",
+						"hover:bg-yellow cursor-pointer hover:text-blue-950",
+						isActive && "bg-yellow text-blue-950",
 						!hasProducts && "opacity-60"
 					)}
 					aria-expanded={isExpanded}
 				>
 					<span className="flex items-center gap-2">
-						<ChevronDown
+						<IconChevronDown
 							className={cn(
 								"h-4 w-4 transition-transform duration-200 shrink-0",
 								!isExpanded && "-rotate-90"
@@ -134,7 +134,7 @@ const CategorySection = memo(function CategorySection({
 						<span className="truncate">{category.name}</span>
 					</span>
 					{hasProducts && (
-						<span className="text-xs px-2 py-0.5 rounded-full shrink-0  text-muted-foreground">
+						<span className="text-xs px-2 py-0.5 rounded-full shrink-0  text-slate-900">
 							{category.productCount}
 						</span>
 					)}
@@ -145,8 +145,8 @@ const CategorySection = memo(function CategorySection({
 					onClick={onNavigate}
 					className={cn(
 						"w-full flex items-center justify-between py-2.5 px-3 text-sm font-medium transition-colors",
-						"hover:bg-yellow cursor-pointer hover:text-accent-foreground",
-						isActive && "bg-yellow text-accent",
+						"hover:bg-yellow cursor-pointer hover:text-blue-950",
+						isActive && "bg-yellow text-blue-950",
 						!hasProducts && "opacity-60 pointer-events-none"
 					)}
 					aria-current={isActive ? "page" : undefined}
@@ -156,7 +156,7 @@ const CategorySection = memo(function CategorySection({
 						<span
 							className={cn(
 								"text-xs px-2 py-0.5 rounded-full shrink-0",
-								isActive ? "bg-yellow" : " text-accent"
+								isActive ? "bg-yellow" : " text-blue-950"
 							)}
 						>
 							{category.productCount}
@@ -194,7 +194,7 @@ export function ShopSidebarSkeleton() {
 	return (
 		<div className="space-y-4">
 			<div className="flex items-center gap-2 px-3">
-				<Filter className="h-5 w-5" />
+				<IconFilter className="h-5 w-5" />
 				<Skeleton className="h-6 w-32" />
 			</div>
 			<div className="space-y-3">
@@ -270,7 +270,7 @@ export const ShopSidebar = memo(function ShopSidebar({
 				{/* Header — only shown on desktop (Sheet has its own header on mobile) */}
 				{!onNavigate && (
 					<div className="flex items-center gap-2 px-3 pb-2 border-b">
-						<Filter className="h-5 w-5 text-muted-foreground" />
+						<IconFilter className="h-5 w-5 text-blue-950" />
 						<h2 className="text-lg font-semibold tracking-tight">
 							Filter by Category
 						</h2>
@@ -285,8 +285,8 @@ export const ShopSidebar = memo(function ShopSidebar({
 								onClick={onNavigate}
 								className={cn(
 									"flex items-center py-2.5 px-3 text-sm font-medium transition-colors",
-									"hover:bg-yellow hover:text-accent-foreground",
-									!activeCategory && "bg-yellow text-accent-foreground"
+									"hover:bg-yellow hover:text-blue-950",
+									!activeCategory && "bg-yellow text-blue-950"
 								)}
 							>
 								All Products
@@ -312,7 +312,7 @@ export const ShopSidebar = memo(function ShopSidebar({
 						<button
 							type="button"
 							onClick={handleClear}
-							className="text-sm text-muted-foreground hover:text-foreground underline"
+							className="text-sm text-blue-950 hover:text-slate-900 underline"
 						>
 							Clear all filters
 						</button>

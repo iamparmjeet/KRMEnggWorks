@@ -1,6 +1,6 @@
 "use client";
 
-import { IconSearch } from "tabler-icons";
+import { IconSearch } from "@tabler/icons-react";
 import { Button } from "@/components/ui/button";
 import { type SortOption, useShopFilters } from "@/hooks/use-shop-filters";
 
@@ -39,7 +39,7 @@ export function ShopToolbar({
 					<Button
 						type="button"
 						variant="link"
-						className="hover:bg-blue hover:text-white bg-yellow text-blue w-fit h-full size-14 font-bold px-4 py-2"
+						className="hover:bg-blue hover:text-white bg-yellow text-blue-950 w-fit h-full size-14 font-bold px-4 py-2"
 					>
 						<IconSearch className="size-5" />
 					</Button>

@@ -24,7 +24,7 @@ const contactSchema = z.object({
 	mobile: z
 		.string()
 		.regex(/^[0-9\s\-+()]+$/, "Please enter a valid mobile number"),
-	email: z.string().email("Please enter a valid email address"),
+	email: z.email("Please enter a valid email address"),
 	message: z.string().min(10, "Message must be at least 10 characters"),
 });
 
@@ -75,7 +75,7 @@ function ContactFormField<T extends FieldValues = ContactFormData>({
 			name={name}
 			render={({ field, fieldState }) => (
 				<Field data-invalid={fieldState.invalid}>
-					<FieldLabel htmlFor={field.name} className="text-blue-800">
+					<FieldLabel htmlFor={field.name} className="text-blue-950 text-sm">
 						{label} <span className="text-red-600">*</span>
 					</FieldLabel>
 					{textarea ? (
@@ -85,7 +85,7 @@ function ContactFormField<T extends FieldValues = ContactFormData>({
 							placeholder={placeholder}
 							rows={rows}
 							aria-invalid={fieldState.invalid}
-							className="resize-none rounded-none bg-gray-100"
+							className="resize-none rounded-none bg-gray-100 border-blue-950"
 						/>
 					) : (
 						<Input
@@ -94,7 +94,7 @@ function ContactFormField<T extends FieldValues = ContactFormData>({
 							type={type}
 							placeholder={placeholder}
 							aria-invalid={fieldState.invalid}
-							className="rounded-none bg-gray-100"
+							className="rounded-none bg-gray-100 min-h-10 border-blue-950"
 						/>
 					)}
 					{fieldState.invalid && (
@@ -155,13 +155,13 @@ function ContactForm() {
 	return (
 		<div className="lg:col-span-2">
 			<div className="mb-8">
-				<p className="text-accent text-sm font-semibold mb-2">
+				<p className="text-slate-800 text-sm font-semibold mb-2">
 					How can we help?
 				</p>
-				<h2 className="text-3xl md:text-4xl font-bold text-primary mb-4">
+				<h2 className="text-3xl md:text-4xl font-bold text-blue-950 mb-4">
 					Get in Touch with Our Company
 				</h2>
-				<p className="text-accent text-base font-medium leading-relaxed">
+				<p className="text-slate-800 text-base font-medium leading-relaxed">
 					Have questions or want to chat?
 					<br />
 					Fill out our contact form, and we'll put you in touch with the right
@@ -205,7 +205,7 @@ function ContactForm() {
 				<Button
 					type="submit"
 					disabled={form.formState.isSubmitting}
-					className="w-full h-12 bg-yellow hover:bg-primary text-primary hover:text-white font-bold py-2 transition-colors disabled:opacity-50"
+					className="w-full h-12 bg-yellow hover:bg-primary text-blue-950 hover:text-white font-bold py-2 transition-colors text-lg disabled:opacity-50"
 				>
 					{form.formState.isSubmitting ? "Sending..." : "Send"}
 				</Button>
@@ -217,7 +217,7 @@ function ContactForm() {
 function ContactInfo() {
 	return (
 		<div className="lg:col-span-1">
-			<div className="bg-yellow p-6 text-primary">
+			<div className="bg-yellow p-6 text-blue-950">
 				<div className="text-5xl mb-3">
 					<svg
 						aria-hidden="true"
@@ -249,11 +249,11 @@ function ContactInfo() {
 							key={item.id}
 							className="flex items-center gap-4 group cursor-pointer"
 						>
-							<IconComponent className="size-7 rounded-sm p-1.2 stroke-yellow group-hover:stroke-sky" />
+							<IconComponent className="size-7 rounded-sm p-1.2 stroke-yellow group-hover:stroke-sky-400" />
 							<Link
 								href={item.link}
 								target="_blank"
-								className="text-gray-300 transition-colors group-hover:text-sky"
+								className="text-gray-100 transition-colors group-hover:text-sky-400"
 							>
 								<h4 className="text-2xl font-semibold">{item.text}</h4>
 								<p className="text-base font-medium">{item.label}</p>

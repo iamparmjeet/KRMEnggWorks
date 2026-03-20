@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Cambo, Epilogue, Figtree, Geist, Inter } from "next/font/google";
+import { Cambo, Epilogue, Inter, Roboto_Slab, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 
 const cambo = Cambo({
@@ -30,6 +30,10 @@ import { Header } from "@/components/header";
 import { favicon } from "@/constants/data";
 import { cn } from "@/lib/utils";
 
+const jetbrainsMono = JetBrains_Mono({subsets:['latin'],variable:'--font-mono'});
+
+const robotoSlabHeading = Roboto_Slab({subsets:['latin'],variable:'--font-heading'});
+
 const inter = Inter({subsets:['latin'],variable:'--font-sans'});
 
 export default function RootLayout({
@@ -38,7 +42,7 @@ export default function RootLayout({
 	children: React.ReactNode;
 }>) {
 	return (
-		<html lang="en" className={cn("font-sans", inter.variable)}>
+		<html lang="en" className={cn("", inter.variable, robotoSlabHeading.variable, "font-mono", jetbrainsMono.variable)}>
 			<body className={`${cambo.variable} ${epilogue.variable} "antialiased"`}>
 				<Header />
 				<main>{children}</main>

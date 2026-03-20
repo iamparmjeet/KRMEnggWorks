@@ -18,6 +18,13 @@ export function generateStaticParams() {
 	return categories.map((c) => ({ slug: c.id }));
 }
 
+function toSlug(str: string) {
+	return str
+		.toLowerCase()
+		.replace(/\s+/g, "-")
+		.replace(/[^a-z0-9-]/g, "");
+}
+
 export default async function ProductCategoryPage({
 	params,
 	searchParams,
@@ -31,20 +38,34 @@ export default async function ProductCategoryPage({
 	// Filter products for this category
 	const categoryProducts = products.filter((p) => p.categoryId.includes(slug));
 
+
 	// Further filter by subcategory if ?sub= is present
 	const subSlug = resolvedSearch.sub;
 	const finalProducts = subSlug
-		? categoryProducts.filter((p) => {
-				const subName = category.subcategories.find(
-					(s) =>
-						s
-							.toLowerCase()
-							.replace(/\s+/g, "-")
-							.replace(/[^a-z0-9-]/g, "") === subSlug
-				);
-				return subName ? p.category.includes(subName) : true;
-			})
-		: categoryProducts;
+			? categoryProducts.filter((p) => {
+					const matchedSubcategory = category.subcategories.find(
+						(s) => toSlug(s) === subSlug,
+					);
+
+					if (!matchedSubcategory) return false;
+
+					// Extract meaningful words from the subcategory name (skip stop words)
+					const stopWords = new Set([
+						"a", "an", "the", "and", "or", "of", "in", "with",
+						"for", "to", "by", "at", "on", "is", "model",
+					]);
+
+					const subKeywords = matchedSubcategory
+						.toLowerCase()
+						.split(/[\s-]+/)
+						.filter((w) => w.length > 2 && !stopWords.has(w));
+
+					const productNameSlug = toSlug(p.name);
+
+					// Product matches if its name slug contains ANY of the subcategory keywords
+					return subKeywords.some((kw) => productNameSlug.includes(kw));
+			  })
+			: categoryProducts;
 
 	return (
 		<Suspense fallback={<ProductGridSkeleton />}>
