@@ -1,17 +1,11 @@
 "use client";
 
-import {
-	ArrowLeft,
-	CheckCircle,
-	Minus,
-	Plus,
-	Send,
-	ShoppingCart,
-	Trash2,
-} from "lucide-react";
+import { ArrowLeft, CheckCircle, Minus, Plus, Send, ShoppingCart, Trash2 } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import { IconShoppingCart } from "tabler-icons";
 import PTB from "@/components/ptb";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -95,7 +89,7 @@ export default function CartPage() {
 			<div className="w-full bg-white min-h-screen">
 				<PTB heading="Your Cart" subheading="Review your selected products" />
 				<div className="max-w-2xl mx-auto px-4 py-20 text-center">
-					<ShoppingCart className="h-20 w-20 text-slate-200 mx-auto mb-6" />
+					<IconShoppingCart className="h-20 w-20 text-slate-200 mx-auto mb-6" />
 					<h2 className="text-2xl font-bold text-[#0d1b2a] mb-2">
 						Your cart is empty
 					</h2>
@@ -405,8 +399,9 @@ export default function CartPage() {
 												Sending...
 											</>
 										) : (
-											<>
-												<Send className="h-4 w-4" />
+												<>
+													<HugeiconsIcon icon={Send} />
+												{/*<Send className="h-4 w-4" />*/}
 												Send Enquiry to KRM
 											</>
 										)}
