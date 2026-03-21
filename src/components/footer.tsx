@@ -113,7 +113,7 @@ function CopyRightSec() {
 						rel="noopener"
 						className="hover:text-yellow"
 					>
-						Made with ♥ by Farm
+						Made with ♥ by Parm
 					</a>
 				</p>
 				<div className="flex gap-4">
