@@ -6,7 +6,13 @@ import {
 	JetBrains_Mono,
 	Roboto_Slab,
 } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
+import { Footer } from "@/components/footer";
+import { Header } from "@/components/header";
+import { favicon } from "@/constants/data";
+import { siteConfig } from "@/lib/site";
+import { cn } from "@/lib/utils";
 
 const cambo = Cambo({
 	subsets: ["latin"],
@@ -19,22 +25,63 @@ const epilogue = Epilogue({
 });
 
 export const metadata: Metadata = {
-	title: "KRM Engineering Works – Building Manufacturing Solutions",
-	description:
-		"KRM Engineering Works – One Stop Solution For All Your Building Manufacturing Needs.",
+	metadataBase: new URL(siteConfig.url),
+	title: {
+		default: "KRM Engineering Works – Building Manufacturing Solutions",
+		template: "%s | KRM Engineering Works",
+	},
+	description: siteConfig.description,
+	keywords: [...siteConfig.keywords],
+	authors: [{ name: siteConfig.author.name, url: siteConfig.author.url }],
+	creator: siteConfig.creator,
+	publisher: siteConfig.name,
+	category: "Construction Machinery",
+	alternates: {
+		canonical: "/",
+	},
+	openGraph: {
+		type: "website",
+		locale: siteConfig.locale,
+		url: siteConfig.url,
+		siteName: siteConfig.name,
+		title: "KRM Engineering Works – Building Manufacturing Solutions",
+		description: siteConfig.description,
+		images: [
+			{
+				url: siteConfig.ogImage,
+				width: 1200,
+				height: 630,
+				alt: "KRM Engineering Works – Construction Machinery Manufacturer",
+			},
+		],
+	},
+	twitter: {
+		card: "summary_large_image",
+		title: "KRM Engineering Works – Building Manufacturing Solutions",
+		description: siteConfig.description,
+		images: [siteConfig.ogImage],
+	},
+	robots: {
+		index: true,
+		follow: true,
+		googleBot: {
+			index: true,
+			follow: true,
+			"max-video-preview": -1,
+			"max-image-preview": "large",
+			"max-snippet": -1,
+		},
+	},
 	icons: {
 		icon: [
 			{
 				url: favicon,
 			},
 		],
+		apple: [{ url: favicon }],
 	},
+	manifest: "/manifest.webmanifest",
 };
-
-import { Footer } from "@/components/footer";
-import { Header } from "@/components/header";
-import { favicon } from "@/constants/data";
-import { cn } from "@/lib/utils";
 
 const jetbrainsMono = JetBrains_Mono({
 	subsets: ["latin"],
@@ -68,6 +115,37 @@ export default function RootLayout({
 				<Header />
 				<main>{children}</main>
 				<Footer />
+				{/* Umami Analytics */}
+				<Script
+					defer
+					src="https://umami.parmjeetmishra.com/script.js"
+					data-website-id="a68dc3ff-0045-4326-b08b-ca5cfc9ad14e"
+					strategy="afterInteractive"
+				/>
+				{/* Organization JSON-LD */}
+				<script
+					type="application/ld+json"
+					dangerouslySetInnerHTML={{
+						__html: JSON.stringify({
+							"@context": "https://schema.org",
+							"@type": "Organization",
+							name: siteConfig.name,
+							url: siteConfig.url,
+							logo: siteConfig.ogImage,
+							description: siteConfig.description,
+							email: siteConfig.contact.email,
+							telephone: siteConfig.contact.phone,
+							address: {
+								"@type": "PostalAddress",
+								streetAddress: siteConfig.contact.address,
+								addressLocality: "Deoria",
+								addressRegion: "Uttar Pradesh",
+								addressCountry: "IN",
+							},
+							sameAs: Object.values(siteConfig.socials),
+						}),
+					}}
+				/>
 			</body>
 		</html>
 	);

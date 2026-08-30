@@ -1,8 +1,10 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import { ProductGridSkeleton } from "@/components/shop/product-grid";
 import { ShopLayout } from "@/components/shop/shop-layout";
 import { categories, products } from "@/constants/product-data";
+import { siteConfig } from "@/lib/site";
 
 interface Props {
 	params: Promise<{ slug: string }>;
@@ -16,6 +18,22 @@ interface Props {
 
 export function generateStaticParams() {
 	return categories.map((c) => ({ slug: c.id }));
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+	const { slug } = await params;
+	const category = categories.find((c) => c.id === slug);
+	if (!category) return {};
+	return {
+		title: `${category.name} | Construction Machinery`,
+		description: `Browse our ${category.name} range at KRM Engineering Works – high-quality building & construction machinery.`,
+		alternates: { canonical: `/product-category/${slug}` },
+		openGraph: {
+			title: `${category.name} | KRM Engineering Works`,
+			description: `Browse our ${category.name} range – high-quality machinery from KRM Engineering Works.`,
+			url: `${siteConfig.url}/product-category/${slug}`,
+		},
+	};
 }
 
 function toSlug(str: string) {

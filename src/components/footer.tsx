@@ -103,7 +103,36 @@ function NewsletterSec() {
 
 function CopyRightSec() {
 	return (
-		<div className="border-t-2 border-accent pt-8">
+		<div className="border-t-2 border-accent pt-8 space-y-4">
+			<div className="flex flex-wrap justify-center md:justify-start gap-x-6 gap-y-2 text-sm text-slate-400">
+				<Link
+					href="/privacy-policy"
+					className="hover:text-yellow transition-colors"
+				>
+					Privacy Policy
+				</Link>
+				<Link href="/terms" className="hover:text-yellow transition-colors">
+					Terms & Conditions
+				</Link>
+				<Link
+					href="/shipping-policy"
+					className="hover:text-yellow transition-colors"
+				>
+					Shipping
+				</Link>
+				<Link
+					href="/refund-policy"
+					className="hover:text-yellow transition-colors"
+				>
+					Refund Policy
+				</Link>
+				<Link
+					href="/sitemap.xml"
+					className="hover:text-yellow transition-colors"
+				>
+					Sitemap
+				</Link>
+			</div>
 			<div className="flex flex-col md:flex-row justify-between items-center gap-4">
 				<p className="text-center md:text-left text-lg font-medium text-white">
 					© {year()} | All rights reserved |{" "}

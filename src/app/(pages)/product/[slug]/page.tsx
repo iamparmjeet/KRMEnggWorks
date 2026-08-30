@@ -1,10 +1,12 @@
 import { IconBox, IconChartLine, IconShieldCheck } from "@tabler/icons-react";
+import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import ProductCard from "@/components/shop/product-card";
 import { Separator } from "@/components/ui/separator";
 import { type ProductListItem, products } from "@/constants";
 import { getProductBySlug, getRelatedProducts } from "@/lib/product-utils";
+import { siteConfig } from "@/lib/site";
 import { ProductImage } from "./product-image";
 import { ProductInteractions } from "./product-interactions";
 
@@ -16,6 +18,35 @@ export function generateStaticParams() {
 
 export const dynamic = "force-static";
 export const revalidate = false;
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+	const { slug } = await params;
+	const product = getProductBySlug(slug);
+	if (!product) return {};
+	return {
+		title: product.name,
+		description: product.description,
+		alternates: { canonical: `/product/${slug}` },
+		openGraph: {
+			title: `${product.name} | KRM Engineering Works`,
+			description: product.description,
+			url: `${siteConfig.url}/product/${slug}`,
+			type: "website",
+			images: product.images.map((img) => ({
+				url: img,
+				width: 1200,
+				height: 630,
+				alt: product.name,
+			})),
+		},
+		twitter: {
+			card: "summary_large_image",
+			title: product.name,
+			description: product.description,
+			images: [product.images[0]],
+		},
+	};
+}
 
 // ─── Page (Server Component
 
@@ -38,8 +69,30 @@ export default async function ProductDetailPage({ params }: Props) {
 	const primaryCategoryName =
 		product.category.split(",")[0]?.trim() ?? product.category;
 
+	const jsonLd = {
+		"@context": "https://schema.org",
+		"@type": "Product",
+		name: product.name,
+		description: product.description,
+		image: product.images,
+		category: product.category,
+		brand: { "@type": "Brand", name: siteConfig.name },
+		offers: {
+			"@type": "Offer",
+			availability: "https://schema.org/InStock",
+			priceCurrency: "INR",
+			price: product.price > 0 ? product.price : undefined,
+			url: `${siteConfig.url}/product/${slug}`,
+			seller: { "@type": "Organization", name: siteConfig.name },
+		},
+	};
+
 	return (
 		<div className="w-full bg-white min-h-screen">
+			<script
+				type="application/ld+json"
+				dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+			/>
 			{/* Breadcrumb */}
 			<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-0 py-8">
 				<nav className="flex items-center text-xs text-slate-700 overflow-x-auto whitespace-nowrap">
@@ -131,7 +184,7 @@ export default async function ProductDetailPage({ params }: Props) {
 						</h2>
 						<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
 							{relatedProducts.map((p: ProductListItem) => (
-								<Link key={p.id} href={p.slug}>
+								<Link key={p.id} href={`/product/${p.slug}`}>
 									<ProductCard key={p.id} product={p} />
 								</Link>
 							))}

@@ -3,9 +3,24 @@ import {
 	IconFileCertificate,
 	IconUsers,
 } from "@tabler/icons-react";
+import type { Metadata } from "next";
 import Image from "next/image";
 import PTB from "@/components/ptb";
 import { media } from "@/constants/data";
+import { siteConfig } from "@/lib/site";
+
+export const metadata: Metadata = {
+	title: "About Us",
+	description:
+		"Learn about KRM Engineering Works – leading manufacturer of building & construction machinery since 2021. Trusted, quality, and innovation.",
+	alternates: { canonical: "/about" },
+	openGraph: {
+		title: "About Us | KRM Engineering Works",
+		description:
+			"Learn about KRM Engineering Works – trusted manufacturer since 2021.",
+		url: `${siteConfig.url}/about`,
+	},
+};
 
 export default function About() {
 	return (
